@@ -4,11 +4,14 @@
 # 
 # Why? - I started using the GTD method and I found that it is dificult to
 # choose which task I should work with. So I thought about the way a OS
-# scheduler works and how it can run several tasks and prioritize the important
-# ones. 
+# scheduler works and how it can run several tasks and prioritize the
+# important ones. 
 #
 # How? - Having 5 priorities I can put the due weight on each one and the 
 # scheduler will tell me which should I execute.
+#
+# Todo:
+#   - Work around negative values
 
 PERSISTENT=~/scripts/sev.txt
 
