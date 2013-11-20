@@ -1,0 +1,163 @@
+#!/bin/bash
+#
+# csr - checksysreport wrarpper and sosreport analysis tool
+#
+# History
+#
+#   - 0.1    -  Original version from GMD
+#   - 0.1.1  -  Added some 
+#   - 0.2    -  Added /proc/cmdline
+
+if [ $# -eq "0" ]
+then
+echo "Usage: csr [OPTION]"
+echo
+echo 'Options
+  -c			Generate checksysreport
+  -m 			grep messages for important logs
+  -x			Generate xsos'
+echo
+exit 0
+fi
+
+
+while getopts "cmx" opt; do
+
+case $opt in 
+
+c) echo "##############################################"
+echo checksysreport 
+echo
+
+checksysreport -s . > check_out.txt
+
+if $(grep "Canot parse the following in installed-rpms" check_out.txt > /dev/null); 
+then
+   echo "Fixing installed-rpms empty line..."
+   sed -i '/^$/d' installed-rpms
+   checksysreport -s . > check_out.txt
+   less check_out.txt
+else
+   less check_out.txt
+fi
+echo
+;;
+
+m) echo "##############################################"
+echo Search for modules 
+echo
+egrep -i 'weak|extra|hp-' sos_commands/kernel/modinfo* || echo "No extra modules found"
+echo
+
+echo "##############################################"
+echo Search for 5500 hardware
+echo
+grep 5500 lspci || echo "No 5500 chipset found"
+echo
+
+echo "##############################################"
+echo "What does the \"kernel: do_IRQ: X.Y No irq handler for vector (irq -1)\" message mean?"
+echo "https://access.redhat.com/site/solutions/110053"
+echo
+grep -i 'No irq handler for vector' var/log/messages* || echo "No irq handler for vector found on messages"
+echo
+
+echo "##############################################"
+echo "== Reboots =="
+echo
+grep "Command line" var/log/messages* || echo "No reboots found on messages"
+echo
+
+echo "== User-initiated Shutdown =="
+echo 
+egrep "down for system reboot|Switching to runlevel: 6|exiting on signal 15|Got SIGTERM, quitting" var/log/messages* || echo No User-initiated Shutdown
+echo
+
+echo "== Veritas Cluster Fence Event =="
+echo
+grep "Port h isolated due to client process failure" var/log/messages* || echo No Veritas Cluster Fence Event
+echo
+
+echo "== RHEL High-Availability Cluster Suite Fence Event =="
+echo
+egrep "fenced|encing node" var/log/messages* || echo No RHEL HA CS Fence event
+echo
+
+echo "== Hardware Fault =="
+echo
+grep "Machine Check Exception" var/log/messages* || echo No HW fault
+echo
+
+echo "== Thermal Event Cooling Failure =="
+echo
+egrep "Temperature above threshold|cpu clock throttled|Core power limit notification" var/log/messages* || echo No thermal event
+echo
+
+echo "== Power Button Pressed =="
+echo
+egrep "received event|button\/power PWRF 00000000 00000000" var/log/messages* || echo No power button pressed
+echo
+
+echo "== Non-Maskable Interrupt Received =="
+echo
+grep "NMI received for unknown reason" var/log/messages* || echo No Non-Maskable Interrupt Received
+echo
+
+echo "== Task Blocked for Too Long =="
+echo
+grep "blocked for more than 120 seconds" var/log/messages* || echo no Task blocked for too long
+echo
+
+echo "##############################################"
+echo panic and sysrq config
+echo
+echo "What all panic parameters are available which I can use to panic a system when it is hanging or sluggish ?"
+echo "https://access.redhat.com/site/solutions/459523"
+echo
+egrep "panic|sysrq" sos_commands/kernel/sysctl_-a 
+echo
+
+echo "##############################################"
+echo "How do I automatically generate a vmcore to help analyse soft lockups?"
+echo "https://access.redhat.com/site/solutions/19541"
+echo
+grep -i "soft lockup" var/log/message* || echo "No soft lockups found"
+echo
+
+echo "##############################################"
+echo kdump
+echo
+cat proc/cmdline
+echo
+egrep -v "^#|^$" etc/kdump.conf || echo "No kdump config found"
+echo
+grep kdump var/log/messages* || echo "No kdump logs found on messages"
+echo
+
+echo "##############################################"
+echo Network errors
+echo
+egrep -i "err|timeout|drop|fail" ./sos_commands/networking/ethtool_-S_eth* | grep -v ": 0$"
+echo
+egrep -i "err|timeout|drop|fail|rejec|delay|discar|reset|retrans|invali|loss|collapsed" ./sos_commands/networking/netstat_-s 
+echo
+
+echo "##############################################"
+echo "Database tunables (Oracle)"
+echo
+cat sos_commands/kernel/sysctl_-a | egrep "vm.swappiness|dirty_background_ratio|dirty_ratio|dirty_expire_centisecs|dirty_writeback_centisecs"
+echo
+
+;;
+
+x) echo "##############################################"
+echo
+xsos -bocmlein . > xsos.txt
+more xsos.txt
+echo
+;;
+
+\?) echo "Invalid option: -$OPTARG" >$2 ;;
+
+esac
+done
