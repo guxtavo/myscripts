@@ -13,7 +13,7 @@
 # Todo:
 #   - Work around negative values
 
-PERSISTENT=~/scripts/sev.txt
+PERSISTENT=/tmp/`whoami`_sev.txt
 
 if [ -e $PERSISTENT ]
   then
@@ -41,11 +41,16 @@ do
     else
       SHUF=`shuf -i 1-5 -n 1`
       case $SHUF in
-        5) if [ $SHUF -ge 0 ]; then echo -n 5 ": "; let SEV_URGENT--; echo $SEV_URGENT; fi;;
-        4) if [ $SHUF -ge 0 ]; then echo -n 4 ": "; let SEV_HIGH--; echo $SEV_HIGH; fi;;
-        3) if [ $SHUF -ge 0 ]; then echo -n 3 ": "; let SEV_NORMAL--; echo $SEV_NORMAL; fi;;
-        2) if [ $SHUF -ge 0 ]; then echo -n 2 ": "; let SEV_LOW--; echo $SEV_LOW; fi;;
-        1) if [ $SHUF -ge 0 ]; then echo -n 1 ": "; let SEV_ARCHIVE--; echo $SEV_ARCHIVE; fi;;
+        5) if [ $SHUF -ge 0 ]; then echo -n 5 ": "; \
+           let SEV_URGENT--; echo $SEV_URGENT; fi;;
+        4) if [ $SHUF -ge 0 ]; then echo -n 4 ": "; \
+           let SEV_HIGH--; echo $SEV_HIGH; fi;;
+        3) if [ $SHUF -ge 0 ]; then echo -n 3 ": "; \
+           let SEV_NORMAL--; echo $SEV_NORMAL; fi;;
+        2) if [ $SHUF -ge 0 ]; then echo -n 2 ": "; \
+           let SEV_LOW--; echo $SEV_LOW; fi;;
+        1) if [ $SHUF -ge 0 ]; then echo -n 1 ": "; \
+           let SEV_ARCHIVE--; echo $SEV_ARCHIVE; fi;;
         *) ;;
       esac
   fi
