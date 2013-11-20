@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# sev - a simple scheduler based on priorities.
+# 
+# Why? - I started using the GTD method and I found that it is dificult to
+# choose which task I should work with. So I thought about the way a OS
+# scheduler works and how it can run several tasks and prioritize the important
+# ones. 
+#
+# How? - Having 5 priorities I can put the due weight on each one and the 
+# scheduler will tell me which should I execute.
+
+PERSISTENT=~/scripts/sev.txt
+
+if [ -e $PERSISTENT ]
+  then
+    . $PERSISTENT
+  else
+    SEV_URGENT=33
+    SEV_HIGH=27
+    SEV_NORMAL=20
+    SEV_LOW=13
+    SEV_ARCHIVE=7
+fi
+
+while true
+do
+  echo -n "Enter to continue, q to quit: "
+  read a
+  if [ "$a" == "q" ];
+    then 
+      echo "SEV_URGENT=$SEV_URGENT" > $PERSISTENT
+      echo "SEV_HIGH=$SEV_HIGH" >> $PERSISTENT 
+      echo "SEV_NORMAL=$SEV_NORMAL" >> $PERSISTENT 
+      echo "SEV_LOW=$SEV_LOW" >> $PERSISTENT 
+      echo "SEV_ARCHIVE=$SEV_ARCHIVE" >> $PERSISTENT 
+      exit 0
+    else
+      SHUF=`shuf -i 1-5 -n 1`
+      case $SHUF in
+        5) if [ $SHUF -ge 0 ]; then echo -n 5 ": "; let SEV_URGENT--; echo $SEV_URGENT; fi;;
+        4) if [ $SHUF -ge 0 ]; then echo -n 4 ": "; let SEV_HIGH--; echo $SEV_HIGH; fi;;
+        3) if [ $SHUF -ge 0 ]; then echo -n 3 ": "; let SEV_NORMAL--; echo $SEV_NORMAL; fi;;
+        2) if [ $SHUF -ge 0 ]; then echo -n 2 ": "; let SEV_LOW--; echo $SEV_LOW; fi;;
+        1) if [ $SHUF -ge 0 ]; then echo -n 1 ": "; let SEV_ARCHIVE--; echo $SEV_ARCHIVE; fi;;
+        *) ;;
+      esac
+  fi
+done
