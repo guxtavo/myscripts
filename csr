@@ -7,6 +7,7 @@
 #   - 0.1    -  Original version from GMD (gdzien@redhat.com)
 #   - 0.1.1  -  Added some 
 #   - 0.2    -  Added /proc/cmdline
+#   - 0.2.1  -  proc/iomen and chkconfig checks for kdump added
 
 if [ $# -eq "0" ]
 then
@@ -44,7 +45,7 @@ echo
 ;;
 
 m) echo "##############################################"
-echo Search for modules 
+echo "== 3rd party modules =="
 echo
 egrep -i 'weak|extra|hp-' sos_commands/kernel/modinfo* || echo "No extra modules found"
 echo
@@ -61,6 +62,12 @@ echo "https://access.redhat.com/site/solutions/110053"
 echo
 grep -i 'No irq handler for vector' var/log/messages* || echo "No irq handler for vector found on messages"
 echo
+
+echo "##############################################"
+echo
+grep -i 'Out of MCCQ wrbs' var/log/messages* || echo "No Out of MCCQ wrbs found on messages"
+echo
+
 
 echo "##############################################"
 echo "== Reboots =="
@@ -86,6 +93,7 @@ echo
 echo "== Hardware Fault =="
 echo
 grep "Machine Check Exception" var/log/messages* || echo No HW fault
+grep "Machine check events" var/log/messages* || echo No HW fault
 echo
 
 echo "== Thermal Event Cooling Failure =="
@@ -123,6 +131,8 @@ echo "https://access.redhat.com/site/solutions/19541"
 echo
 grep -i "soft lockup" var/log/message* || echo "No soft lockups found"
 echo
+grep -i tty boot/grub/grub.conf || echo "No ttys on grub.conf"
+echo
 
 echo "##############################################"
 echo kdump
@@ -132,6 +142,10 @@ echo
 egrep -v "^#|^$" etc/kdump.conf || echo "No kdump config found"
 echo
 grep kdump var/log/messages* || echo "No kdump logs found on messages"
+echo
+grep -i crash proc/iomem || echo "Crash kernel not found on /proc/iomem"
+echo
+grep kdump chkconfig || echo "No kdump found on chkconfig"
 echo
 
 echo "##############################################"
@@ -143,10 +157,43 @@ egrep -i "err|timeout|drop|fail|rejec|delay|discar|reset|retrans|invali|loss|col
 echo
 
 echo "##############################################"
-echo "Database tunables (Oracle)"
+echo "Tuning Red Hat Enterprise Linux for Oracle and Oracle RAC performance"
+echo "https://access.redhat.com/site/solutions/39188"
 echo
 cat sos_commands/kernel/sysctl_-a | egrep "vm.swappiness|dirty_background_ratio|dirty_ratio|dirty_expire_centisecs|dirty_writeback_centisecs"
 echo
+
+echo "##############################################"
+echo "== oom-killer =="
+echo
+grep -i oom-killer var/log/messages* || echo "No oom-killer found"
+echo
+
+echo "##############################################"
+echo "Searching for call traces"
+echo
+grep -i -A 10 -B 5 "call trace" var/log/messages* || echo "No call traces found"
+echo
+
+echo "##############################################"
+echo "Searching for segfaults"
+echo
+grep segfault var/log/messages* || echo "No segfaults found"
+echo
+
+echo "##############################################"
+echo "Searching for failed forks"
+echo
+egrep "fork of child|Resoure temporarily" var/log/messages* || echo "No failed forks found"
+echo
+
+echo "##############################################"
+echo "Searching for eth* messages"
+echo
+egrep "eth" var/log/messages* || echo "No eth* messages found"
+echo
+
+
 
 ;;
 
