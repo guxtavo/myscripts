@@ -1,0 +1,33 @@
+Hi,
+
+My name is Gustavo and I will be handling your case while my colleague Jozef is out of office. 
+
+I understand you problem is:
+
+  - After upgrading from 5.8 to 5.9 (yum update), any kernel (both old and new) panics
+
+It seems it is possible to restore the system. I would like to know if having the system in 5.8 somehow affects your business?
+
+I ask that because I would like to follow our procedures, so if your business is not impacted to the point is halted, we could lower the severity, which could give me more time to update you, which will allow me to get to the bottom of this more quickly. I cannot tell what are your high availability goals, but for issues like this, sometimes we need to make several boots in order to find the root cause.
+
+  - Make a clone/snapshot/backup of your system where we can play around will help us much
+
+About Matt's question, "What happens if you run '# yum update kernel redhat-release'?", I think he was trying to stablish whether your system becomes unbootable if just the kernel is updated, as other packages could be causing the issue. Nonetheless, I also think it is important to understand that. 
+
+  - Try to update the kernel only and check if you still have the same problem
+
+After you are able to tell us if just the kernel update breaks your system or not, I will need your help you troubleshoot this issue:
+
+  - Upload sosreport (from rescue mode) of the affected 5.9
+  - Upload /boot content from both 5.8 and 5.9
+
+The error message you have shows that the root vg was not found. This can happen when you upgrade the kernel. The odd part is that when you upgrade a kernel, the old kernel has no change, thus it should boot normally. 
+
+  - Do you see the same error with both old and new kernel?
+
+If you are running vmwaretools, could you please check whether you have the latest version, just to be safe?
+
+--
+Gustavo Figueira
+Red Hat Global Support Services 
+

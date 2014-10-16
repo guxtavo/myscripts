@@ -1,0 +1,30 @@
+Hi,
+
+Thank you for raising management attention to this case. My name is Gustavo Figueira and I am a team lead within the Global Support Services Team in EMEA.
+
+-------
+Request Management Escalation: Hi,
+
+I am trying to resolve an issue that is dependent on a configuration which I have asked for assistance with.
+
+The engineer is instead debating my reason for selecting the severity level. Another business service is dependent on it and it is crucial to get this done.
+-------
+
+My colleague Konstantin is indeed debating the reasons for the Urgent severity, which is only meant for production down environments. We advise our engineers to do that to be more efficient treating those cases. Even though he was trying to understand your situation, I couldn't see just one time he missing the SLA, which in this case is 1 hour response time. At the same time he didn't stop giving you support.
+
+Please do understand that this is needed to ensure all our customers, including you, can have the right priority when a production down case is faced. If we don't do this in all cases, we could end up spending more time with a customer which doesn't have a severe situation and could end up neglecting your case which is a legitimate severe case. 
+
+If you agree, I will change this case's severity from Urgent to High, which translates to 2 hour response time. Konstantin is a highly skilled engineer and is used to deal with volume. He is always doing his best and tries to answer in a timely manner, most of times much sooner than the SLA requires.
+
+If you still require a manager to get involved in this case, please do not hesitate to get in touch with myself, a manager or a technician on the following numbers using this link below:
+
+https://access.redhat.com/support/contact/technicalSupport.html
+
+For more information on Red Hat Support Severity Level Definitions please visit: https://access.redhat.com/support/policy/severity/
+
+For more information on our Production Support Level Agreements please visit: https://access.redhat.com/support/offerings/production/sla.html
+
+Please let me know if we can be of any more help. Thank you for your patience and kind regards,
+
+Gustavo Figueira
+Red Hat Global Support Services 

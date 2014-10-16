@@ -1,0 +1,16 @@
+If you have further question do not hesitate to contact us.
+
+--
+Gustavo Figueira - Kernel and Networking Engineer
+Red Hat Global Support Services - http://access.redhat.com
+
+For more information on our Severity Level Definition, Scope of Support and SLA:
+https://access.redhat.com/support/policy/severity/
+https://access.redhat.com/support/offerings/production/soc
+https://access.redhat.com/support/offerings/production/sla
+
+Sev1* - Production/Business down
+Sev2* - Production/Business impacted
+Sev3 - Non-critical issue or RCA
+Sev4 - Question
+* - 24x7 support applicable - premium only

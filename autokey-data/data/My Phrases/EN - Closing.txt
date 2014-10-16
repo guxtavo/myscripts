@@ -1,0 +1,13 @@
+Hello,
+
+I am closing this case now and you may receive an email request to fill a survey regarding our support services.
+
+I would highly appreciate if you fill it, as your feedback is very important to Red Hat and it helps us to determine what we are doing correctly and what we should improve in the future.
+
+Please do not hesitate to contact us again if you face any other issue with your Red Hat products.
+
+Thank you for using Red Hat Global Support Services.
+
+--
+Gustavo Figueira
+Red Hat Global Support Services

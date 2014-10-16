@@ -1,0 +1,26 @@
+Hello,
+
+Thank you for contacting Red Hat Global Support Services. My name is Gustavo and I will be handling your case. 
+
+In order to have a better understanding about your question/issue I kindly ask you to generate a sosreport from the affected system and upload it to your case. You can find instructions about creating the sosreport at this article: 
+
+What is a "sosreport" and how do I create it in Red Hat Enterprise Linux 4.6 and later?
+https://access.redhat.com/site/solutions/3592
+
+Also could you please tell whether kdump is configured on this system or not? If it is and if a vmcore file was generate, then please upload it to your case. Normally the vmcores are dumped in /var/crash. But that depends on your kdump configuration.
+
+> system frequently hang and need to reboot
+> Server esesslx0331.ss.sw.ericsson.se keep hang and we need to reboot server every time this issue happened.
+> We need to verify the OS installed is not caused for this error.
+
+As per your description of the problem I will try to identify why your system keeps getting hang. Would you mind checking the following article for more information:
+
+https://access.redhat.com/site/articles/206873
+
+Specially the part which talks about ASR.
+
+If you have further question do not hesitate to contact us.
+
+--
+Gustavo Figueira
+Red Hat Global Support Services 

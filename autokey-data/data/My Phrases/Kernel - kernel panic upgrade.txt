@@ -1,0 +1,62 @@
+> After upgrade the kernel, we are getting kernel panic error
+
+My priority is to get your server up and running. For that I will ask you to try to boot[1] an old kernel to get your system back online. You can do this by selecting an older version in the Grub menu, right after the machine's POST.
+
+When you already have your server back online, for RCA (root cause analysis) purposes, Red Hat will need the following:
+
+  * Do backup of the new kernel's initrd 
+  * Regenerate[2] the new kernel's initrd (as .bkp)
+  * Do a tarball from the /boot directory and upload to the case
+  * Upload a fresh sosreport[3]
+
+In case the server cannot boot any of the older kernels, please provide the following:
+
+  * Screenshot of the error
+  * Fresh sosreport[3] regenated in rescue[4] mode
+
+Please understand that some problems might be more complicate than they look. That's why I need insight of your system before we can do something. I don't want to hurry to fix your system and end up making it worse. Besides, if I end up needing to do something, I will need to get the data anyway.
+
+Working over console can be time consuming, so in order to save time, please consider generating the sosreport.
+
+Customer Portal Solutions to guide and help you:
+
+  [1] How do I boot using an alternate / previous / older kernel?
+  https://access.redhat.com/solutions/226423
+
+  [2] How to rebuild the initial ramdisk image in Red Hat Enterprise Linux
+  https://access.redhat.com/solutions/1958
+
+  [3] What is a "sosreport" and how do I create it in Red Hat Enterprise Linux 4.6 and later?
+  https://access.redhat.com/site/solutions/3592
+
+  [4] How to generate sosreport from the rescue environment
+  https://access.redhat.com/site/solutions/2872
+
+  When is it necessary to rebuild the initramfs?
+  https://access.redhat.com/solutions/453703
+  
+  Initial ramdisk does not include the LVM configuration files or binaries
+  https://access.redhat.com/solutions/413573
+
+If you are unsure about executing any of the steps or want some clarifications about some details, please don't hesitate to ask me.
+
+Please note our SLA is based on response time, not resolution time. The SLA for your case is 1 hour.
+
+
+
+
+> Error screen shot has been attached. please check the same. 
+
+The error message which calls my attention is:
+
+  Volume group "VolGroup00" not found
+
+There are several reasons this can happen.
+
+> we already tried to boot with old kernel. 
+
+Did you try all the available kernels and none of them work? If this is the case, it might mean something external to the OS can be causing this. The boot code, kernel image and initrd are present and can be read, but when the system tries to activate the root volume group, the system is not able to find it. Do you have your rootvg over SAN?
+
+> still getting same kernel panic error. please took remote session and check.
+
+After you boot with the installation media into the rescue[1] mode and successfully executed "chroot /mnt/sysimage", let me know and I will share the remote session information with you.

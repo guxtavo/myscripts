@@ -1,0 +1,163 @@
+Good day,
+I am Vladis Dronov, Red Hat Technical Support Engineer and I am helping Hitesh with this case.
+
+Thank you for providing 'vmcore' file, I have made an analysis of it, please, see here my results. Please, note the load average,
+it is huge for 2 processors:
+
+crash> sys
+        CPUS: 2
+        DATE: Wed Nov  6 04:56:43 2013
+LOAD AVERAGE: 663.69, 663.62, 663.62
+       TASKS: 1337
+
+The active task was trying to find some memory:
+
+PID: 5733   TASK: ffff810037f7b7a0  CPU: 0   COMMAND: "java"
+ #9 [ffffffff804a5f50] __do_IRQ at ffffffff800bcfd8
+#10 [ffffffff804a5f90] do_IRQ at ffffffff8006d480
+--- <IRQ stack> ---
+#11 [ffff8100257d98f8] ret_from_intr at ffffffff8005d615
+    [exception RIP: shrink_inactive_list+302]
+#12 [ffff8100257d9b90] shrink_zone at ffffffff8001327d
+#13 [ffff8100257d9bd0] try_to_free_pages at ffffffff800cdea2
+#14 [ffff8100257d9c60] __alloc_pages at ffffffff8000f59e
+#15 [ffff8100257d9cd0] __do_page_cache_readahead at ffffffff8001300a
+#16 [ffff8100257d9d40] filemap_nopage at ffffffff80013945
+#17 [ffff8100257d9da0] __handle_mm_fault at ffffffff80008964
+#18 [ffff8100257d9e60] do_page_fault at ffffffff8006720b
+#19 [ffff8100257d9f50] error_exit at ffffffff8005dde9
+
+Lets look on the memory usage:
+
+crash> kmem -i
+              PAGES        TOTAL      PERCENTAGE
+ TOTAL MEM   978180       3.7 GB         ----
+      FREE        0            0    0% of TOTAL MEM
+      USED   978180       3.7 GB  100% of TOTAL MEM <== all memory is used
+    SHARED    21500        84 MB    2% of TOTAL MEM
+   BUFFERS       43       172 KB    0% of TOTAL MEM <== no buffers
+    CACHED     7855      30.7 MB    0% of TOTAL MEM <== no cache
+      SLAB     9515      37.2 MB    0% of TOTAL MEM
+TOTAL SWAP   524286         2 GB         ----
+ SWAP USED   524286         2 GB  100% of TOTAL SWAP <== even all swap is used
+ SWAP FREE        0            0    0% of TOTAL SWAP
+
+Lets looks how has consumed most of the memory (3.7Gb total) and swap (2Gb total):
+
+   PID    PPID  CPU       TASK        ST  %MEM     VSZ    RSS  COMM
+   1955   1487   0  ffff8100a0eee7a0  RU   0.9  980460  47688  java
+   1964   1487   0  ffff8100972fd7a0  IN   0.9  980460  47688  java
+   4533   1487   1  ffff81007a467820  RU   0.9  980460  47688  java
+   4773   4738   0  ffff8101062ff7e0  IN   0.9 1531792  45100  java
+   4774   4738   0  ffff810131fa4040  RU   0.9 1531792  45100  java
+   4775   4738   1  ffff81011e1307a0  IN   0.9 1531792  45100  java
+   ...skip...many more java...
+   8049  16588   1  ffff81009f2d8100  RU  20.8 1917136 1088884  java
+   8053  16588   0  ffff8100212e47a0  IN  20.8 1917136 1088884  java
+   8054  16588   0  ffff8100209f30c0  RU  20.8 1917136 1088884  java
+   8055  16588   1  ffff810113298040  IN  20.8 1917136 1088884  java
+   8130  16588   0  ffff8101188ba7a0  RU  20.8 1917136 1088884  java
+   8132  16588   0  ffff81007a4670c0  RU  20.8 1917136 1088884  java
+   5254   5246   0  ffff8100148f10c0  RU  34.3 6507844 1796908  java
+   5261   5246   0  ffff8100978d6820  RU  34.3 6507844 1796908  java
+   5329   5246   1  ffff810053c607a0  RU  34.3 6507844 1796908  java
+
+Swap usage:
+
+ PID   SWAP      COMM
+ ...skip...
+ 5512  606760k	 java
+ 5516  606760k	 java
+ 5517  606760k	 java
+ 5518  606760k	 java
+ 5519  606760k	 java
+ 5521  606760k	 java
+ 5531  606760k	 java
+ 5537  606760k	 java
+ 5538  606760k	 java
+ 5539  606760k	 java
+ 5546  606760k	 java
+ 5547  606760k	 java
+ 5548  606760k	 java
+ 5553  606760k	 java
+ 5559  606760k	 java
+ 5566  606760k	 java
+ 5569  606760k	 java
+ 5647  606760k	 java
+
+Lets check how much memory (including not-yet-allocated) all the processes has requested from the system:
+
+crash> pd (long long)vm_committed_space.counter
+$1 = 2547750
+crash> !expr 2547750 \* 4 / 1024 / 1024
+9 <== 9 Gb in total on 6Gb (mem+swap) server
+
+So, it looks like 'java' processes has occupied all the memory and swap. No surprise the system has gone into deep swapping
+and almost all processes has stuck in the kernel code trying to find some free memory pages.
+Unfortunately, as far as I can see from the sos-report, the Java version you use is not shipped, so not
+supported by the Red Hat, so I can give here just general recommendations:
+
+(1) Assuming this is not a memory leak, increase RAM by approximately
+6 GiB and continue to monitor memory consumption levels.
+
+(2) In addition to above, limit the amount of processes/tasks
+which can entire direct memory reclaim, to prevent hangs
+during memory reclaim. A patch was added to the el5 kernel
+since kernel-2.6.18-187.el5).
+
+Try adjusting "vm.max_reclaims_in_progress" between
+1 to 2 (given that there are 2 logical CPUs as seen by
+the kernel anyway).
+
+(3) Set "vm.overcommit_memory" kernel parameter to 2 and
+vm.overcommit_ratio to 80 (see details below in [1])
+to not allow the server overcommit the memory
+
+(4) Check if there's a memory leak in your Java application code
+
+(5) Configure Java so that it is not trying
+to consume all the memory and swap available.
+
+Another possible point (as in (1)) can be that this system memory just just not enough for the current load.
+There's little can be done by tuning the system to prevent it swapping, if the workload surpasses the system's
+entitled capacity:
+
+https://access.redhat.com/site/solutions/47761
+"How can I assure that page thrashing won't happen again on my system?"
+
+Best regards,
+Vladis Dronov, Red Hat Technical Support
+
+=== [1] ======================================================
+
+vm.overcommit_memory:
+
+This value contains a flag that enables memory overcommitment.
+
+When this flag is 0, the kernel attempts to estimate the amount
+of free memory left when userspace requests more memory.
+
+When this flag is 1, the kernel pretends there is always enough
+memory until it actually runs out.
+
+When this flag is 2, the kernel uses a "never overcommit"
+policy that attempts to prevent any overcommit of memory.
+
+This feature can be very useful because there are a lot of
+programs that malloc() huge amounts of memory "just-in-case"
+and don't use much of it.
+
+The default value is 0.
+
+See Documentation/vm/overcommit-accounting and
+security/commoncap.c::cap_vm_enough_memory() for more information.
+
+==============================================================
+
+vm.overcommit_ratio:
+
+When overcommit_memory is set to 2, the committed address
+space is not permitted to exceed swap plus this percentage
+of physical RAM. See above.
+
+==============================================================

@@ -1,0 +1,5 @@
+  How to troubleshoot kernel crashes, hangs, or reboots with kdump on Red Hat Enterprise Linux
+  https://access.redhat.com/site/solutions/6038
+
+  What panic parameters are available for use to panic a system when it is hanging or sluggish?
+  https://access.redhat.com/site/solutions/459523

@@ -1,0 +1,11 @@
+Hola,
+
+Me alegra de que el caso ya esté resuelto, según su petición procedo a cerrar el caso. Si necesita más asistencia, puede abrir un nuevo caso y hacer referencia a éste.
+
+Me gustaría pedirle que se tomara un minuto para rellenar la Encuesta de Satisfacción del Cliente cuando la reciba por correo electrónico.
+
+Gracias por utilizar el Soporte Técnico de Red Hat.
+
+--
+Gustavo Figueira
+Red Hat Global Support Services

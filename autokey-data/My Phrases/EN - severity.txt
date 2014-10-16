@@ -1,0 +1,13 @@
+ # Severity
+
+You have opened the ticket selecting a severity of #; 
+
+1 - this means to us that there is an ongoing production outage which you are trying to handle, and our first priority will be to help you with that and if needed find a workaround to alleviate the impact for you. 
+
+2 - this means to us that there is an ongoing production outage which you are trying to handle, and our first priority will be to help you with that and if needed find a workaround to alleviate the impact for you. 
+
+3 - this means to us that there is an ongoing production outage which you are trying to handle, and our first priority will be to help you with that and if needed find a workaround to alleviate the impact for you. 
+
+4 - this means to us that there is an ongoing production outage which you are trying to handle, and our first priority will be to help you with that and if needed find a workaround to alleviate the impact for you. 
+
+From the ticket description, it is not clear what the impact is, could you please clarify so we can handle the ticket in the most effective manner for you?

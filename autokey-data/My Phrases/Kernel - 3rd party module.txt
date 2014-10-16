@@ -1,0 +1,2 @@
+  How does Red Hat Global Support Services handle third-party software, drivers, and/or uncertified hardware/hypervisors?  
+  https://access.redhat.com/articles/1067

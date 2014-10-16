@@ -1,0 +1,18 @@
+Hello,
+
+Thank you for contacting Red Hat Global Support Services. My name is Gustavo and I will be handling your case. 
+
+In order to have a better understanding about your question/issue I kindly ask you to generate a sosreport from the affected system and upload it to your case. You can find instructions about creating the sosreport at this article: 
+
+What is a "sosreport" and how do I create it in Red Hat Enterprise Linux 4.6 and later?
+https://access.redhat.com/site/solutions/3592
+
+> The Average I/O wait for this servers contantly more than 10.00.
+
+The iowait is the percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request. It can mean that your IO devices are not fast enough to respond to the workload you are putting on them. With the sosreport I will try to understand whether this is the case or not.
+
+If you have further question do not hesitate to contact us.
+
+--
+Gustavo Figueira
+Red Hat Global Support Services 

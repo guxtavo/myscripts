@@ -1,0 +1,18 @@
+> 
+
+I see the memory is mostly used by cached:
+
+MEMORY
+  Stats graphed as percent of MemTotal:
+    MemUsed    ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◇◇◇◇  92.1%
+    Buffers    ◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇   0.0%
+    Cached     ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◇◇◇◇◇◇◇◇◇◇◇◇◇◇  71.1%
+    HugePages  ◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇   0.0%
+    Dirty      ◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇   0.0%
+
+But I don't see oom-killer being triggered:
+
+[hodcesbwmb2-2014093009281412054905]$ grep oom-killer var/log/messages 
+[hodcesbwmb2-2014093009281412054905]$ 
+
+This is a normal behaviour of the Linux Kernel. For the Kernel, unused memory is wasted memory. So it tries to cache most used files on you system in cached. When the Kernel needs memory, it will free some space from cached.
