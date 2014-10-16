@@ -1,172 +1,268 @@
 #!/bin/bash
-#
-# csr - checksysreport wrarpper and sosreport analysis tool
-#
-# History
-#
-#   - 0.1    -  Original version from GMD (gdzien@redhat.com)
-#   - 0.1.1  -  Added some 
-#   - 0.2    -  Added /proc/cmdline
-#   - 0.2.1  -  proc/iomen and chkconfig checks for kdump added
 
-if [ $# -eq "0" ]
-then
-echo "Usage: csr [OPTION]"
-echo
-echo 'Options
-  -c			Generate checksysreport
-  -m 			grep messages for important logs
-  -x			Generate xsos'
-echo
-exit 0
-fi
-
-
-while getopts "cmx" opt; do
-
-case $opt in 
-
-c) echo "##############################################"
-echo checksysreport 
-echo
-
-checksysreport -s . > check_out.txt
-
-if $(grep "Canot parse the following in installed-rpms" check_out.txt > /dev/null); 
-then
-   echo "Fixing installed-rpms empty line..."
-   sed -i '/^$/d' installed-rpms
-   checksysreport -s . > check_out.txt
-   less check_out.txt
-else
-   less check_out.txt
-fi
-echo
-;;
-
-m) echo "##############################################"
-echo "== 3rd party modules =="
-echo
-egrep -i 'weak|extra|hp-' sos_commands/kernel/modinfo* || echo "No extra modules found"
+echo "##############################################"
+echo "##############################################"
+echo "##############################################"
+echo "##############################################"
+echo "####################csr#######################"
+echo "##############################################"
+echo "##############################################"
+echo "##############################################"
+echo "##############################################"
 echo
 
 echo "##############################################"
-echo Search for 5500 hardware
-echo
-grep 5500 lspci || echo "No 5500 chipset found"
+echo "##############################################"
+echo "################ Networking ##################"
+echo "##############################################"
+echo "##############################################"
 echo
 
-echo "##############################################"
-echo "What does the \"kernel: do_IRQ: X.Y No irq handler for vector (irq -1)\" message mean?"
-echo "https://access.redhat.com/site/solutions/110053"
+echo "################# Hardware ###################"
+echo "  Why do I see 'kernel: do_IRQ: X.Y No irq handler for vector (irq -1)' messages on systems with Intel 5500 and 5520 chipsets?"
+echo "  https://access.redhat.com/solutions/110053"
+echo
+grep 5500 lspci | tail -n5 || echo "No 5500 chipset found"
 echo
 grep -i 'No irq handler for vector' var/log/messages* || echo "No irq handler for vector found on messages"
 echo
 
-echo "##############################################"
+echo "################# Hardware ###################"
+echo "  Error: be2net: Out of MCCQ wrbs"
+echo "  https://access.redhat.com/solutions/35572"
 echo
 grep -i 'Out of MCCQ wrbs' var/log/messages* || echo "No Out of MCCQ wrbs found on messages"
 echo
 
+echo "################# Counters ###################"
+echo Network errors
+echo
+cat uptime
+echo
+echo "Checking for err|timeout|drop|fail|discard on ethtool"
+echo
+egrep -i "err|timeout|drop|fail|discard" ./sos_commands/networking/ethtool_-S_eth* | grep -v ": 0$"
+echo
+echo "Checking for err|timeout|drop|fail|reject|delay|discard|reset|retrans|invali|loss|collapsed on netstat -s"
+echo
+egrep -i "err|timeout|drop|fail|rejec|delay|discar|reset|retrans|invali|loss|collapsed" ./sos_commands/networking/netstat_-s 
+echo
+echo -n "Number of processes with data on recvq: "
+awk '{IGNORECASE=1}{if ($2 > 0) print}' ./sos_commands/networking/netstat_-neopa | grep -v unix | wc -l
+echo
+echo -n "Number of processes with data on sendq: "
+awk '{IGNORECASE=1}{if ($3 > 0) print}' ./sos_commands/networking/netstat_-neopa | grep -v unix | wc -l
+echo
 
 echo "##############################################"
-echo "== Reboots =="
+echo "##############################################"
+echo "################## Kernel ####################"
+echo "##############################################"
+echo "##############################################"
+echo
+
+echo "################## Modules ###################"
+echo "  How does Red Hat Global Support Services handle third-party software, drivers, and/or uncertified hardware/hypervisors?"
+echo "  https://access.redhat.com/articles/1067"
+echo
+egrep -i 'weak|extra|hp-' sos_commands/kernel/modinfo* || echo "No extra modules found"
+echo
+
+echo "################# Hardware ###################"
+echo "  Performance degradation after the system firmware upgrade on"
+echo "  HP ProLiant DL580 G7 (and possibly other) servers"
+echo "  https://access.redhat.com/solutions/530713"
+echo
+egrep "P65|07/01/2013|1.61" dmidecode || echo "No P65 BIOS found"
+echo
+egrep "12/03/2012|1.55" dmidecode || echo "No 1.55 BIOS found"
+echo
+
+echo "################# Hardware ###################"
+echo "  Why system crash with HP NMI Watchdog [hpwdt] ?"
+echo "  https://access.redhat.com/solutions/707563"
+echo
+egrep "PoLiant DL360 G8|1.30|1.32|1.40|1.50" dmidecode || echo "No HP NMI Watchdog affected firmware found"
+echo
+
+echo "################## Audit #####################"
+echo "  System shutdown/reboot with "shutdown" or "init" seen in the logs"
+echo "  https://access.redhat.com/solutions/46073"
+echo
+echo "  Kernel panic - not syncing: audit: backlog limit exceeded"
+echo "  https://access.redhat.com/solutions/44602"
+echo
+grep '^-f 2' etc/audit/audit.rules || echo "-f 2 not found on audit.rules"
+echo
+
+echo "##############################################"
+echo "############ Unexpected Reboots ##############"
+echo "##############################################"
+echo
+echo "##############################################"
+echo "  A Guide to Unexpected System Restarts"
+echo "  https://access.redhat.com/articles/206873"
+echo
+echo "  How to make sure that system will automatically reboot after a kernel panic ?"
+echo "  https://access.redhat.com/solutions/37275"
+echo
+echo "  What all panic parameters are available which I can use to panic a system when it is hanging or sluggish ?"
+echo "  https://access.redhat.com/site/solutions/459523"
+echo
+egrep "panic|sysrq" sos_commands/kernel/sysctl_-a 
+echo
+echo "############### last reboots #################"
 echo
 grep "Command line" var/log/messages* || echo "No reboots found on messages"
 echo
 
-echo "== User-initiated Shutdown =="
+echo "############# user initiated #################"
+echo "  System shutdown/reboot with "shutdown" or "init" seen in the logs"
+echo "  https://access.redhat.com/solutions/46073"
 echo 
 egrep "down for system reboot|Switching to runlevel: 6|exiting on signal 15|Got SIGTERM, quitting" var/log/messages* || echo No User-initiated Shutdown
 echo
 
-echo "== Veritas Cluster Fence Event =="
+echo "############## veritas fence #################"
 echo
 grep "Port h isolated due to client process failure" var/log/messages* || echo No Veritas Cluster Fence Event
 echo
 
-echo "== RHEL High-Availability Cluster Suite Fence Event =="
+echo "############## RHEL HA fence #################"
 echo
 egrep "fenced|encing node" var/log/messages* || echo No RHEL HA CS Fence event
 echo
 
-echo "== Hardware Fault =="
+echo "################### MCE ######################"
+echo "  Red Hat Enterprise Linux Server hangs with Machine Check Exception(MCE) in /var/log/messages."
+echo "  https://access.redhat.com/solutions/18723"
 echo
 grep "Machine Check Exception" var/log/messages* || echo No HW fault
 grep "Machine check events" var/log/messages* || echo No HW fault
 echo
 
-echo "== Thermal Event Cooling Failure =="
+echo "################# Hardware ###################"
+echo "  Seeing "Temperature above threshold" or "Core power limit notification"  in /var/log/messages"
+echo "  https://access.redhat.com/solutions/134973"
 echo
 egrep "Temperature above threshold|cpu clock throttled|Core power limit notification" var/log/messages* || echo No thermal event
 echo
 
-echo "== Power Button Pressed =="
+echo "################# Hardware ###################"
 echo
 egrep "received event|button\/power PWRF 00000000 00000000" var/log/messages* || echo No power button pressed
 echo
 
-echo "== Non-Maskable Interrupt Received =="
+echo "################# Hardware ###################"
+echo "  Error: Uhhuh. NMI received for unknown reason <xx>"
+echo "  https://access.redhat.com/solutions/35402"
 echo
-grep "NMI received for unknown reason" var/log/messages* || echo No Non-Maskable Interrupt Received
-echo
-
-echo "== Task Blocked for Too Long =="
-echo
-grep "blocked for more than 120 seconds" var/log/messages* || echo no Task blocked for too long
+grep "NMI received for unknown reason" var/log/messages* 2> /dev/null || echo No Non-Maskable Interrupt Received
 echo
 
-echo "##############################################"
-echo panic and sysrq config
+echo "############### task blocked #################"
+echo "  System becomes unresponsive with message "INFO: task <process>:<pid> blocked for more than 120 seconds"
+echo "  https://access.redhat.com/solutions/31453"
 echo
-echo "What all panic parameters are available which I can use to panic a system when it is hanging or sluggish ?"
-echo "https://access.redhat.com/site/solutions/459523"
-echo
-egrep "panic|sysrq" sos_commands/kernel/sysctl_-a 
+grep "blocked for more than" var/log/messages* || echo no Task blocked for too long
 echo
 
-echo "##############################################"
-echo "How do I automatically generate a vmcore to help analyse soft lockups?"
-echo "https://access.redhat.com/site/solutions/19541"
+echo "############### soft lockups #################"
+echo "  How do I automatically generate a vmcore to help analyse soft lockups?"
+echo "  https://access.redhat.com/site/solutions/19541"
+echo
+echo "  Getting "BUG: soft lockup detected on CPU#N" messages running RHEL on VMWare"
+echo "  https://access.redhat.com/solutions/21849"
 echo
 grep -i "soft lockup" var/log/message* || echo "No soft lockups found"
 echo
-grep -i tty boot/grub/grub.conf || echo "No ttys on grub.conf"
+
+echo "############### oracle rac ###################"
+echo "  What is Oracle RAC Node eviction and what are the common causes of evictions ?"
+echo "  https://access.redhat.com/solutions/473963"
+echo
+echo "I've found there are oracle processes sitting on /proc/sysrq-triggers - this is commonly used as fencing mechanism. As this is oracle RAC, I would recommend to check the oracle CSSD logs if the fencing took place. If so, I would recommend to contact oracle for the reason why the node was fenced."
+echo
+egrep trig lsof || echo "no trig found on lsof"
 echo
 
-echo "##############################################"
-echo kdump
+echo "################## vmware ####################"
+echo "  Determining if a High Availability Virtual Machine Monitoring event caused a virtual machine to reboot"
+echo "  http://kb.vmware.com/kb/1027734"
 echo
+
+echo "################# Hardware ###################"
+echo "  Systems with Intel Xeon Processor E5, Intel Xeon Processor E5 v2, or Intel Xeon Processor E7 v2 and certain versions of Red Hat Enterprise Linux 6 kernels become unresponsive/hung or incur a kernel panic"
+echo "  https://access.redhat.com/solutions/433883"
+echo
+grep nameidata_to_filp var/log/messages* 2> /dev/null || echo no E5 xeon bug
+echo
+
+echo "################# kdump ######################"
+echo "  How to troubleshoot kernel crashes, hangs, or reboots with kdump on Red Hat Enterprise Linux"
+echo "  https://access.redhat.com/site/solutions/6038"
+echo
+echo "  How to collect system information to provide to Red Hat Support for analysis when a system hangs"
+echo "  https://access.redhat.com/solutions/23069"
+echo
+echo "== cmdline =="
 cat proc/cmdline
 echo
+echo "== kdump.conf =="
 egrep -v "^#|^$" etc/kdump.conf || echo "No kdump config found"
 echo
+echo "== kdump on log/messages =="
 grep kdump var/log/messages* || echo "No kdump logs found on messages"
 echo
-grep -i crash proc/iomem || echo "Crash kernel not found on /proc/iomem"
+echo "== iomem =="
+grep -i crash proc/iomem 2> /dev/null || echo "Crash kernel not found on /proc/iomem"
 echo
+echo "== chkconfig =="
 grep kdump chkconfig || echo "No kdump found on chkconfig"
 echo
 
-echo "##############################################"
-echo Network errors
+echo "################# oracle #####################"
+echo "You are running an oracle workload. Please refer to the following solutions for further tuning or your Red Hat Enterprise Linux"
 echo
-egrep -i "err|timeout|drop|fail" ./sos_commands/networking/ethtool_-S_eth* | grep -v ": 0$"
+echo "  Tuning Red Hat Enterprise Linux for Oracle and Oracle RAC performance"
+echo "  https://access.redhat.com/site/solutions/39188"
 echo
-egrep -i "err|timeout|drop|fail|rejec|delay|discar|reset|retrans|invali|loss|collapsed" ./sos_commands/networking/netstat_-s 
+echo "  What is the recommended I/O scheduler for a database workload in Red Hat Enterprise Linux?"
+echo "  https://access.redhat.com/solutions/54164"
 echo
-
-echo "##############################################"
-echo "Tuning Red Hat Enterprise Linux for Oracle and Oracle RAC performance"
-echo "https://access.redhat.com/site/solutions/39188"
+echo "== io scheduler =="
+egrep "io scheduler|elevator" var/log/messages proc/cmdline || echo "No IO scheduler found"
 echo
 cat sos_commands/kernel/sysctl_-a | egrep "vm.swappiness|dirty_background_ratio|dirty_ratio|dirty_expire_centisecs|dirty_writeback_centisecs"
 echo
 
 echo "##############################################"
-echo "== oom-killer =="
+echo "  What does the message Out of Memory: Killed process PID TASK mean?"
+echo "  https://access.redhat.com/solutions/25965"
+echo
+echo "  How do I configure panic on oom-killer events ?"
+echo "  https://access.redhat.com/solutions/17208"
 echo
 grep -i oom-killer var/log/messages* || echo "No oom-killer found"
+echo
+
+echo "##############################################"
+echo "  What do the components in a page allocation failure message mean ?"
+echo "  https://access.redhat.com/solutions/74573"
+echo
+echo "  Kernel panic due to Out of memory even though lots of physical memory was available"
+echo "  https://access.redhat.com/solutions/444873"
+echo
+grep vm.min_free_kbytes sos_commands/kernel/sysctl_-a
+echo
+grep "page allocation failure" var/log/messages*
+echo
+
+echo "##############################################"
+echo "  Why is the kernel "tainted" and how are the taint values deciphered?"
+echo "  https://access.redhat.com/solutions/40594"
+echo
+cat proc/sys/kernel/tainted || echo "no tainted file found"
 echo
 
 echo "##############################################"
@@ -178,13 +274,42 @@ echo
 echo "##############################################"
 echo "Searching for segfaults"
 echo
+echo "Number of segfault messages:"
+grep -c segfault var/log/messages*
+echo
 grep segfault var/log/messages* || echo "No segfaults found"
 echo
 
 echo "##############################################"
-echo "Searching for failed forks"
+echo "  The boot message 'Performance Events: PEBS fmt1+, Westmere events, Broken BIOS detected' is seen in Red Hat Enterprise Linux 6"
+echo "  https://access.redhat.com/solutions/55862"
+echo
+egrep "BIOS has corrupted|Broken BIOS detected" var/log/messages* || echo "No broken bios"
+echo
+
+echo "##############################################"
+echo "  What does the "scsi reservation conflict" message mean in RHEL and how can I resolve it?"
+echo "  https://access.redhat.com/site/solutions/20119"
+echo
+egrep "reservation conflict" var/log/messages* || echo "No reservation conflict found"
+echo
+
+echo "##############################################"
+echo "  What does the error message fork failed: Resource temporarily unavailable mean?"
+echo "  https://access.redhat.com/solutions/22105"
 echo
 egrep "fork of child|Resoure temporarily" var/log/messages* || echo "No failed forks found"
+echo
+
+echo "##############################################"
+echo "############### Extended info ################"
+echo "##############################################"
+echo
+
+echo "##############################################"
+echo "tail -20 dmesg"
+echo
+tail -20 var/log/dmesg
 echo
 
 echo "##############################################"
@@ -192,19 +317,3 @@ echo "Searching for eth* messages"
 echo
 egrep "eth" var/log/messages* || echo "No eth* messages found"
 echo
-
-
-
-;;
-
-x) echo "##############################################"
-echo
-xsos -bocmlein . > xsos.txt
-more xsos.txt
-echo
-;;
-
-\?) echo "Invalid option: -$OPTARG" >$2 ;;
-
-esac
-done
