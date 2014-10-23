@@ -1,0 +1,2 @@
+  How can I provide large files (such as a vmcore, big log files, or a large sysreport) to Red Hat Support?
+  https://access.redhat.com/site/solutions/2112

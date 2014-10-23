@@ -1,0 +1,24 @@
+Hi,
+
+My name is Gustavo, Technical Support Engineer from Red Hat Global Support Services working on Kernel and Networking speciality groups. I will be assisting you on this case during EMEA working hours. You can choose to be supported in the following regions: NA, EMEA, APAC, LATAM and INDIA. Please let me know what better suits you.
+
+From the problem description/definition I understand you want to
+
+  -
+
+You have opened the ticket selecting a severity of #; 
+
+        1 - This means to us that there is an ongoing production outage which you are trying to handle,
+             and our first priority will be to help you with that and if needed find a workaround to alleviate
+             the impact for you. 
+
+        2 - This means to us that there is an ongoing production impact, but you are able to workaround
+             the problem, and our first priority will be to help you getting your production stable. 
+
+From the ticket description, it is not clear what the impact is, could you please clarify so we can handle the ticket in the most effective manner for you?
+
+Please allow me some time to get acquainted with your case. I will post my findings as soon as possible.
+
+If you have further question do not hesitate to contact us.
+
+$$sign

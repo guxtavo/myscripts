@@ -1,0 +1,22 @@
+I understand you feel uncertain about updating the kernel and the time needed for that.
+
+Updating a RHEL Kernel is almost not harmless at all. It is a very common and tested procedure by our QE team. It is also very easy to "rollback" in case the new kernel doesn't boot. You simply boot[1] with the old kernel.
+
+  [1] How do I boot using an alternate / previous / older kernel?
+  https://access.redhat.com/solutions/226423
+
+If your new kernel doesn't boot, the first thing you should try is to boot back[1] the old kernel and try to regenerate[2] new kernel'sinitrd.
+
+  [2] How to rebuild the initial ramdisk image in Red Hat Enterprise Linux
+  https://access.redhat.com/solutions/1958
+
+Within the same major version, we maintain[3] the API and the ABI unchanged, which allow the applications to run unaltered. 
+
+  [3] Red Hat Enterprise Linux: Application Compatibility GUIDE
+  https://access.redhat.com/articles/rhel-abi-compatibility
+
+In order to simplify the Kernel update process, it is recommended to update the package (yum update kernel) before the maintenance window, or in a low traffic window first. This operation will cause minimum load and should be performed before to save time.
+
+To boot the new kernel, you can have a short maintenance window, as you just need to reboot the servers to run the new kernel.
+
+The fix is provided in the new Kernel. If you have questions about upgrading the Kernel let me know.

@@ -1,4 +1,0 @@
-In order to have a better understanding about your question/issue I kindly ask you to generate a sosreport from the affected system and upload it to your case. You can find instructions about creating the sosreport at this article: 
-
-  What is a "sosreport" and how do I create it in Red Hat Enterprise Linux 4.6 and later?
-  https://access.redhat.com/site/solutions/3592

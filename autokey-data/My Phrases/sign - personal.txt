@@ -1,7 +1,0 @@
-
---
-Gustavo Figueira | Technical Support Engineer
-<gux@redhat.com> |  Red Hat Czech s.r.o - GSS
-+55 21 4062-7731 |   guxtavo@sip.linphone.org
----------------------------------------------
-n2fn.blogspot.com| linkedin.com/in/guxtavo FF

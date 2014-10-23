@@ -1,0 +1,48 @@
+Hi,
+
+My name is Gustavo and I will be handling your case while my colleague Jozef is out of office. 
+
+It seems your problem is:
+
+  - Hypervisor gets hung probably (can only confirm with vmcore) due to out of memory condition 
+
+This behaviour is expected when you have memory pressure (all memory used) in a system. The system is coping with the low memory condition, thus is having more work to handle even basic operation (%sys).
+
+As this server's workload is to be a hypervisor, I would like to know whether you are overcommitting memory to vms or not.
+
+I see this system has 64G of ram. From the sosreport I see the top memory consuming (above 100M) are:
+
+  Top MEM-using processes: 
+    USER      PID    %CPU  %MEM  VSZ-MiB  RSS-MiB  TTY    STAT  START  TIME   COMMAND 
+    qemu      8418   28.3  4.3   16954    2799     ?      Sl    16:01  11:33  /usr/libexec/qemu-kvm -S -M 
+    qemu      8336   22.2  3.0   17310    1972     ?      Sl    16:01  9:05   /usr/libexec/qemu-kvm -S -M 
+    qemu      8377   19.9  2.9   17260    1875     ?      Sl    16:01  8:08   /usr/libexec/qemu-kvm -S -M 
+    qemu      8300   21.6  2.8   17263    1834     ?      Sl    16:01  8:51   /usr/libexec/qemu-kvm -S -M 
+    oemagent  8793   1.6   0.6   6679     440      ?      Sl    16:04  0:36   /OEM/agent/Agent12c/core/12.1.0.2.0/jdk/bin/java -Xmx128M 
+    root      13567  9.7   0.1   422      125      pts/6  S+    16:41  0:05   /usr/bin/python /usr/sbin/sosreport 
+                                          =====
+                                          9140
+
+This gives us a total of around 10G used. But this is after boot. 
+
+  - What are the maximum memory values you have for those vms?
+
+I see the memory is mostly used by cached:
+
+MEMORY
+  Stats graphed as percent of MemTotal:
+    MemUsed    ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◇◇◇◇  92.1%
+    Buffers    ◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇   0.0%
+    Cached     ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◇◇◇◇◇◇◇◇◇◇◇◇◇◇  71.1%
+    HugePages  ◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇   0.0%
+    Dirty      ◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇   0.0%
+
+But I don't see oom-killer being triggered:
+
+[hodcesbwmb2-2014093009281412054905]$ grep oom-killer var/log/messages 
+[hodcesbwmb2-2014093009281412054905]$ 
+
+This is a normal behaviour of the Linux Kernel. For the Kernel, unused memory is wasted memory. So it tries to cache most used files on you system in cached. When the Kernel needs memory, it will free some space from cached.
+
+  Why does my system utilize swap space instead of freeing up cache and buffer memory?
+  https://access.redhat.com/solutions/3367

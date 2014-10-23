@@ -1,0 +1,9 @@
+Hi,
+
+As we have not received any update on this case for over 12 hours, we are no longer monitoring this case 24x7.
+
+You are still able to receive Premium Severity 1/2 support on this issue at any time, however you will need to call in for this to occur.
+
+Free call numbers are available on our Customer Portal at: https://access.redhat.com/support/contact/technicalSupport.html
+
+$$sign

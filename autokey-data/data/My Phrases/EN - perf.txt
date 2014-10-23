@@ -1,7 +1,0 @@
-  1) How are you measuring the performance? What are the indicators you use to say the performance is bad or good?
-  
-  2) Can you reproduce the degradation at will? Is there a particular time frame the issue is manifested?
-
-  3) Since when the performance impact was noticed? 
-
-  4) Where there any recent changes to your system? New application deployment? 

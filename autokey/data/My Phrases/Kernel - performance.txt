@@ -1,0 +1,47 @@
+Before we start, there is a nice presentation regarding performance tuning on RHEL6 and RHEL7 that you might use to do a checklist:
+
+  https://access.redhat.com/sites/default/files/attachments/rhel_jeder.pdf
+  Performance Tuning and Analysis of Red Hat Enterprise Linux 6 and 7
+
+There are some questions we need to clarify before we proceed with the troubleshooting:
+
+  1) How are you measuring the performance? What are the indicators you use to say the performance is bad or good?
+  
+  2) Can you reproduce the degradation at will? Is there a particular time frame the issue is manifested?
+
+  3) Since when the performance impact was noticed? 
+
+  4) Where there any recent changes to your system? New application deployment? 
+
+Have you checked what c-states your system is running the most?
+
+  https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html-single/Power_Management_Guide/index.html#PowerTOP
+
+Did you try using tuned?
+
+  https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html-single/Power_Management_Guide/index.html#Tuned
+
+Did you try to set the c-states manually at boot time?
+
+  What are CPU "C-states" and how to disable them if needed?
+  https://access.redhat.com/solutions/202743
+
+Other Customer Portal Solutions to guide and help you:
+
+  How do I use the collectl utility to troubleshoot performance issues in Red Hat Enterprise Linux?
+  https://access.redhat.com/solutions/349283
+
+  After upgrading from RHEL 5 to RHEL 6, CPU usage is increased.
+  https://access.redhat.com/solutions/529183
+
+  Detailed Examination of task(s) processor usage
+  https://access.redhat.com/articles/781993
+
+  How do I set up and use oprofile on Red Hat Enterprise Linux?
+  https://access.redhat.com/solutions/4067
+
+  How to disable NUMA in Red Hat Enterprise Linux system ?
+  https://access.redhat.com/solutions/23216
+
+  How can I manually pin a virtual guest to a specific NUMA node?
+  https://access.redhat.com/solutions/41040

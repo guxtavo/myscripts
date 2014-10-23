@@ -1,3 +1,0 @@
-
-  Getting "BUG: soft lockup detected on CPU#N" messages running RHEL on VMWare
-  https://access.redhat.com/solutions/21849

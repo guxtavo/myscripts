@@ -1,0 +1,14 @@
+I will have a look at the sosreports and try to point out commom problems with their respective solutions. Please note some solutions require downtime. If your infrastructure doesn't offer you this flexibility, we can get stuck moving this case forward.
+
+Please note we might need a vmcore to explain the reboot. If a vmcore file was generate, then please upload it to our dropbox. Normally the vmcores are dumped in /var/crash. But that depends on your kdump configuration.
+
+The starting point for my investigation can be found in the following article:
+
+  A Guide to Unexpected System Restarts
+  https://access.redhat.com/site/articles/206873
+
+If this machine is part of an Oraclet cluster, please seek Oracle for assistance as we have no control over how Oracle fences mechanism works.
+
+If this is a VM, please check your hypervisor for heartbeat messages.
+
+

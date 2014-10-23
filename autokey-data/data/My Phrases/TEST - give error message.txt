@@ -1,3 +1,0 @@
-The steps I provided in my previous update make my test system with RT kernel able to capture a vmcore. 
-
-If that does not work for your environment, we will need to you provide an actual error message so that we can continue. troubleshooting from there, as it might be related to your hardware.
