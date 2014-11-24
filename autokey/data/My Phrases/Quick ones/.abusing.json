@@ -1,13 +1,11 @@
 {
-    "usageCount": 2, 
+    "usageCount": 0, 
     "omitTrigger": false, 
     "prompt": false, 
-    "description": "10 - Closing", 
+    "description": "abusing", 
     "abbreviation": {
         "wordChars": "[\\w]", 
-        "abbreviations": [
-            "$$close"
-        ], 
+        "abbreviations": [], 
         "immediate": false, 
         "ignoreCase": false, 
         "backspace": true, 
@@ -17,9 +15,7 @@
         "hotKey": null, 
         "modifiers": []
     }, 
-    "modes": [
-        1
-    ], 
+    "modes": [], 
     "showInTrayMenu": false, 
     "matchCase": false, 
     "filter": {

@@ -15,6 +15,11 @@ export PATH=$PATH:~/redhat/scripts::~/redhat/git/myscripts/rh
 export HISTSIZE=9999999
 #export PROMPT_COMMAND='history -a; history -n; echo -n "pwd: "; pwd; echo ""'
 
+# power aliases
+alias psg="ps kstart_time -ef"
+alias ds="dstat -c -D sda -r --disk-util --top-bio --top-io-adv"
+alias jbacik="ps auxH -L | grep \" D\"  | awk '{print $3}' | xargs -I '{}' bash -c \"echo '{}'; cat /proc/'{}'/stack\" > /tmp/pid_stack.out"
+
 # User specific aliases
 alias edit_alias="vi ~/.bashrc;. ~/.bashrc"
 alias l="ls -l" 
@@ -26,12 +31,12 @@ alias dropbox="lftp ftp://gfigueir@flopbox.corp.redhat.com"
 alias fubar="ssh -c blowfish gfigueir@fubar.gsslab.pnq.redhat.com"
 alias optimus="ssh gfigueir@optimus.gsslab.rdu2.redhat.com"
 alias gg="/home/gfigueir/redhat/git/support-scripts/internal/gg"
-alias csr="~/redhat/git/myscripts/csr"
+alias csr="vi ~/redhat/git/myscripts/csr"
 alias rhst="redhat-support-tool"
 alias rter="printf '\e[8;40;105t'"
 alias rh="cd ~/redhat/git/myscripts/rh"
 alias p="dbus-send --session --dest=org.hexchat.service --print-reply --type=method_call /org/hexchat/Remote org.hexchat.plugin.Command string:'msg #gss-emea'"
-alias c="csr -m|less"
+alias c="~/redhat/git/myscripts/csr -m|less"
 alias x="xsos -ay .|more"
 
 # User specific Functions
@@ -57,4 +62,14 @@ t_exp() { tshark -tad -r $1 -z "expert,note,tcp" -q ; }
 shopt -s histappend
 set -o emacs
 
+# Aarav functions
 
+#cco() { DATE=`date +%Y%m%d-%H%M` ;
+#        vi ${DATE}.txt ;
+#        echo File created ${DATE}.txt ;
+#        gpaste file ${DATE}.txt ; }
+#
+#ec() { LOCAL_FILE=`ls -tr *.txt | tail -1` ;
+#       vi $LOCAL_FILE ;
+#       echo Finishing editing $LOCAL_FILE ;
+#       gpaste file $LOCAL_FILE ; }

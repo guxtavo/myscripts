@@ -1,17 +1,39 @@
+https://access.redhat.com/solutions/1264643
+
+
 Before we start, there is a nice presentation regarding performance tuning on RHEL6 and RHEL7 that you might use to do a checklist:
 
-  https://access.redhat.com/sites/default/files/attachments/rhel_jeder.pdf
   Performance Tuning and Analysis of Red Hat Enterprise Linux 6 and 7
+  https://access.redhat.com/sites/default/files/attachments/rhel_jeder.pdf
+
+The following solution talks about load average, its calculation and whatnot:
+
+  How is a load average calculated
+  https://access.redhat.com/solutions/30554
+
+  Why is my load average so high, even with high idle CPU times?
+  https://access.redhat.com/solutions/41871
+
+> server load shows high, customer experencing a low performance issue.
+
+Is there any reason for you to believe there is something wrong with the kernel or the OS which is causing such load? What proof do you have to sustain your impression that the system is not
+ responding correcltly to your application needs?
+
+
 
 There are some questions we need to clarify before we proceed with the troubleshooting:
 
-  1) How are you measuring the performance? What are the indicators you use to say the performance is bad or good?
+  1) How are you measuring the performance? What are the indicators you use to say the performance is bad or good? What is the expected and current response times?
   
   2) Can you reproduce the degradation at will? Is there a particular time frame the issue is manifested?
 
   3) Since when the performance impact was noticed? 
 
   4) Where there any recent changes to your system? New application deployment? 
+
+  5) What application is having such issues? Has the application team/vendor been involved? Can the application provide more verbose logs? 
+ 
+  6) Where is the application getting and storing its data? Does the application depend on data/output from other applications?
 
 Have you checked what c-states your system is running the most?
 
@@ -33,6 +55,9 @@ Other Customer Portal Solutions to guide and help you:
 
   After upgrading from RHEL 5 to RHEL 6, CPU usage is increased.
   https://access.redhat.com/solutions/529183
+
+  RHEL 6.5 performance is poor compared to earlier versions
+  https://access.redhat.com/solutions/732903
 
   Detailed Examination of task(s) processor usage
   https://access.redhat.com/articles/781993

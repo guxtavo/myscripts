@@ -4450,3 +4450,235 @@ TypeError: set_text() takes exactly 3 arguments (2 given)
 2014-10-23 11:11:34,217 INFO - config-manager - Configuration changed - rebuilding in-memory structures
 2014-10-23 11:13:40,610 INFO - config-manager - Configuration changed - rebuilding in-memory structures
 2014-10-23 11:35:48,512 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-23 12:14:02,566 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-23 12:14:58,169 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-23 12:17:07,632 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-23 12:25:37,502 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-24 09:06:57,823 INFO - root - Initialising application
+2014-10-24 09:06:58,014 INFO - root - Initialise global hotkeys
+2014-10-24 09:06:58,014 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-10-24 09:06:58,872 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-24 09:06:58,873 INFO - config-manager - Successfully loaded configuration
+2014-10-24 09:06:58,874 INFO - service - Starting service
+2014-10-24 09:06:59,033 INFO - interface - XRecord interface thread starting
+2014-10-24 09:06:59,034 INFO - service - Service now marked as running
+2014-10-24 09:06:59,230 INFO - root - Displaying configuration window
+2014-10-24 09:07:01,418 INFO - root - Entering main()
+2014-10-24 09:17:55,776 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-24 09:25:54,204 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-24 11:27:45,508 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-24 17:41:00,027 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-24 17:41:01,376 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-24 17:41:01,376 INFO - config-manager - Persisting configuration
+2014-10-24 17:41:01,377 INFO - config-manager - Backing up existing config file
+2014-10-24 17:41:01,379 INFO - config-manager - Finished persisting configuration - no errors
+2014-10-27 08:21:41,884 INFO - root - Initialising application
+2014-10-27 08:21:41,959 INFO - root - Initialise global hotkeys
+2014-10-27 08:21:41,959 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-10-27 08:21:42,287 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-27 08:21:42,289 INFO - config-manager - Successfully loaded configuration
+2014-10-27 08:21:42,289 INFO - service - Starting service
+2014-10-27 08:21:42,436 INFO - interface - XRecord interface thread starting
+2014-10-27 08:21:42,439 INFO - service - Service now marked as running
+2014-10-27 08:21:42,550 INFO - root - Displaying configuration window
+2014-10-27 08:21:43,893 INFO - root - Entering main()
+2014-10-27 19:51:51,483 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-27 19:51:51,484 INFO - config-manager - Persisting configuration
+2014-10-27 19:51:51,484 INFO - config-manager - Backing up existing config file
+2014-10-27 19:51:51,485 INFO - config-manager - Finished persisting configuration - no errors
+2014-10-28 08:46:10,015 INFO - root - Initialising application
+2014-10-28 08:46:10,073 INFO - root - Initialise global hotkeys
+2014-10-28 08:46:10,073 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-10-28 08:46:10,326 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-28 08:46:10,326 INFO - config-manager - Successfully loaded configuration
+2014-10-28 08:46:10,327 INFO - service - Starting service
+2014-10-28 08:46:10,462 INFO - interface - XRecord interface thread starting
+2014-10-28 08:46:10,463 INFO - service - Service now marked as running
+2014-10-28 08:46:10,614 INFO - root - Displaying configuration window
+2014-10-28 08:46:11,303 INFO - root - Entering main()
+2014-10-28 16:57:55,729 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-28 16:57:55,764 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-28 16:57:55,764 INFO - config-manager - Persisting configuration
+2014-10-28 16:57:55,765 INFO - config-manager - Backing up existing config file
+2014-10-28 16:57:55,831 INFO - config-manager - Finished persisting configuration - no errors
+2014-10-28 16:58:14,355 INFO - root - Displaying configuration window
+2014-10-28 16:58:29,086 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-28 16:58:29,086 INFO - config-manager - Persisting configuration
+2014-10-28 16:58:29,087 INFO - config-manager - Backing up existing config file
+2014-10-28 16:58:29,087 INFO - config-manager - Finished persisting configuration - no errors
+2014-10-30 09:03:39,770 INFO - root - Initialising application
+2014-10-30 09:03:39,861 INFO - root - Initialise global hotkeys
+2014-10-30 09:03:39,862 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-10-30 09:03:40,143 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-30 09:03:40,144 INFO - config-manager - Successfully loaded configuration
+2014-10-30 09:03:40,144 INFO - service - Starting service
+2014-10-30 09:03:40,281 INFO - interface - XRecord interface thread starting
+2014-10-30 09:03:40,282 INFO - service - Service now marked as running
+2014-10-30 09:03:40,419 INFO - root - Displaying configuration window
+2014-10-30 09:03:41,252 INFO - root - Entering main()
+2014-10-30 17:26:56,607 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-30 17:26:58,389 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-10-30 17:26:58,390 INFO - config-manager - Persisting configuration
+2014-10-30 17:26:58,390 INFO - config-manager - Backing up existing config file
+2014-10-30 17:26:58,391 INFO - config-manager - Finished persisting configuration - no errors
+2014-11-04 08:28:58,154 INFO - root - Initialising application
+2014-11-04 08:28:58,245 INFO - root - Initialise global hotkeys
+2014-11-04 08:28:58,245 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-11-04 08:28:58,565 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-04 08:28:58,566 INFO - config-manager - Successfully loaded configuration
+2014-11-04 08:28:58,566 INFO - service - Starting service
+2014-11-04 08:28:58,699 INFO - interface - XRecord interface thread starting
+2014-11-04 08:28:58,701 INFO - service - Service now marked as running
+2014-11-04 08:28:58,885 INFO - root - Displaying configuration window
+2014-11-04 08:28:59,797 INFO - root - Entering main()
+2014-11-04 08:33:41,844 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-04 09:12:35,146 INFO - service - Undoing last abbreviation expansion
+2014-11-04 09:12:58,850 INFO - service - Undoing last abbreviation expansion
+2014-11-04 11:58:14,173 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-04 16:50:42,358 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-05 17:04:13,641 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-05 17:04:13,641 INFO - config-manager - Persisting configuration
+2014-11-05 17:04:13,642 INFO - config-manager - Backing up existing config file
+2014-11-05 17:04:13,643 INFO - config-manager - Finished persisting configuration - no errors
+2014-11-06 08:49:51,041 INFO - root - Displaying configuration window
+2014-11-06 08:53:18,659 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-06 15:53:30,048 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-07 08:28:22,184 INFO - root - Initialising application
+2014-11-07 08:28:22,430 INFO - root - Initialise global hotkeys
+2014-11-07 08:28:22,430 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-11-07 08:28:25,090 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-07 08:28:25,091 INFO - config-manager - Successfully loaded configuration
+2014-11-07 08:28:25,091 INFO - service - Starting service
+2014-11-07 08:28:27,369 INFO - interface - XRecord interface thread starting
+2014-11-07 08:28:27,369 INFO - service - Service now marked as running
+2014-11-07 08:28:27,947 INFO - root - Displaying configuration window
+2014-11-07 08:28:44,171 INFO - root - Entering main()
+2014-11-07 16:50:01,993 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-07 16:50:01,994 INFO - config-manager - Persisting configuration
+2014-11-07 16:50:01,996 INFO - config-manager - Backing up existing config file
+2014-11-07 16:50:01,998 INFO - config-manager - Finished persisting configuration - no errors
+2014-11-10 08:09:38,737 INFO - root - Initialising application
+2014-11-10 08:09:38,813 INFO - root - Initialise global hotkeys
+2014-11-10 08:09:38,814 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-11-10 08:09:39,100 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-10 08:09:39,101 INFO - config-manager - Successfully loaded configuration
+2014-11-10 08:09:39,102 INFO - service - Starting service
+2014-11-10 08:09:39,230 INFO - interface - XRecord interface thread starting
+2014-11-10 08:09:39,231 INFO - service - Service now marked as running
+2014-11-10 08:09:39,373 INFO - root - Displaying configuration window
+2014-11-10 08:09:40,292 INFO - root - Entering main()
+2014-11-10 19:40:54,893 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-10 19:40:54,894 INFO - config-manager - Persisting configuration
+2014-11-10 19:40:54,894 INFO - config-manager - Backing up existing config file
+2014-11-10 19:40:54,895 INFO - config-manager - Finished persisting configuration - no errors
+2014-11-11 08:50:04,785 INFO - root - Initialising application
+2014-11-11 08:50:04,869 INFO - root - Initialise global hotkeys
+2014-11-11 08:50:04,869 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-11-11 08:50:05,172 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-11 08:50:05,173 INFO - config-manager - Successfully loaded configuration
+2014-11-11 08:50:05,174 INFO - service - Starting service
+2014-11-11 08:50:05,299 INFO - interface - XRecord interface thread starting
+2014-11-11 08:50:05,299 INFO - service - Service now marked as running
+2014-11-11 08:50:05,452 INFO - root - Displaying configuration window
+2014-11-11 08:50:06,296 INFO - root - Entering main()
+2014-11-11 08:55:53,172 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-11 10:41:23,118 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-11 11:52:58,233 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-11 11:57:13,662 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-11 14:41:07,850 INFO - root - Displaying configuration window
+2014-11-12 14:28:44,044 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-12 14:28:57,591 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-12 14:28:57,592 INFO - config-manager - Persisting configuration
+2014-11-12 14:28:57,593 INFO - config-manager - Backing up existing config file
+2014-11-12 14:28:57,594 INFO - config-manager - Finished persisting configuration - no errors
+2014-11-12 14:28:59,933 INFO - root - Displaying configuration window
+2014-11-13 18:03:50,530 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-13 18:03:50,531 INFO - config-manager - Persisting configuration
+2014-11-13 18:03:50,531 INFO - config-manager - Backing up existing config file
+2014-11-13 18:03:50,532 INFO - config-manager - Finished persisting configuration - no errors
+2014-11-14 08:41:20,193 INFO - root - Initialising application
+2014-11-14 08:41:20,559 INFO - root - Initialise global hotkeys
+2014-11-14 08:41:20,559 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-11-14 08:41:25,088 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-14 08:41:25,088 INFO - config-manager - Successfully loaded configuration
+2014-11-14 08:41:25,089 INFO - service - Starting service
+2014-11-14 08:41:25,420 INFO - interface - XRecord interface thread starting
+2014-11-14 08:41:25,421 INFO - service - Service now marked as running
+2014-11-14 08:41:25,658 INFO - root - Displaying configuration window
+2014-11-14 08:41:31,517 INFO - root - Entering main()
+2014-11-14 16:40:17,401 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-14 16:40:17,417 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-14 16:40:17,417 INFO - config-manager - Persisting configuration
+2014-11-14 16:40:17,418 INFO - config-manager - Backing up existing config file
+2014-11-14 16:40:17,419 INFO - config-manager - Finished persisting configuration - no errors
+2014-11-18 07:54:54,533 INFO - root - Initialising application
+2014-11-18 07:54:54,624 INFO - root - Initialise global hotkeys
+2014-11-18 07:54:54,625 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-11-18 07:54:56,706 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-18 07:54:56,707 INFO - config-manager - Successfully loaded configuration
+2014-11-18 07:54:56,707 INFO - service - Starting service
+2014-11-18 07:54:57,215 INFO - interface - XRecord interface thread starting
+2014-11-18 07:54:57,215 INFO - service - Service now marked as running
+2014-11-18 07:54:57,474 INFO - root - Displaying configuration window
+2014-11-18 07:55:03,049 INFO - root - Entering main()
+2014-11-18 13:18:23,347 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-18 16:45:37,991 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-18 16:45:37,992 INFO - config-manager - Persisting configuration
+2014-11-18 16:45:37,992 INFO - config-manager - Backing up existing config file
+2014-11-18 16:45:37,993 INFO - config-manager - Finished persisting configuration - no errors
+2014-11-20 08:12:46,014 INFO - root - Initialising application
+2014-11-20 08:12:46,048 INFO - root - Initialise global hotkeys
+2014-11-20 08:12:46,048 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-11-20 08:12:46,652 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-20 08:12:46,653 INFO - config-manager - Successfully loaded configuration
+2014-11-20 08:12:46,653 INFO - service - Starting service
+2014-11-20 08:12:46,776 INFO - interface - XRecord interface thread starting
+2014-11-20 08:12:46,777 INFO - service - Service now marked as running
+2014-11-20 08:12:46,914 INFO - root - Displaying configuration window
+2014-11-20 08:12:47,708 INFO - root - Entering main()
+2014-11-20 11:23:47,266 INFO - service - Undoing last abbreviation expansion
+2014-11-20 15:07:26,135 INFO - root - Displaying configuration window
+2014-11-20 16:56:25,854 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-20 16:56:25,855 INFO - config-manager - Persisting configuration
+2014-11-20 16:56:25,856 INFO - config-manager - Backing up existing config file
+2014-11-20 16:56:25,857 INFO - config-manager - Finished persisting configuration - no errors
+2014-11-21 08:01:07,086 INFO - root - Initialising application
+2014-11-21 08:01:07,327 INFO - root - Initialise global hotkeys
+2014-11-21 08:01:07,327 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-11-21 08:01:10,392 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-21 08:01:10,393 INFO - config-manager - Successfully loaded configuration
+2014-11-21 08:01:10,393 INFO - service - Starting service
+2014-11-21 08:01:10,603 INFO - interface - XRecord interface thread starting
+2014-11-21 08:01:10,604 INFO - service - Service now marked as running
+2014-11-21 08:01:10,994 INFO - root - Displaying configuration window
+2014-11-21 08:01:14,775 INFO - root - Entering main()
+2014-11-21 10:48:46,662 INFO - service - Undoing last abbreviation expansion
+2014-11-21 16:16:35,595 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-21 16:16:35,595 INFO - config-manager - Persisting configuration
+2014-11-21 16:16:35,596 INFO - config-manager - Backing up existing config file
+2014-11-21 16:16:35,596 INFO - config-manager - Finished persisting configuration - no errors
+2014-11-22 07:55:40,397 INFO - root - Initialising application
+2014-11-22 07:55:40,531 INFO - root - Initialise global hotkeys
+2014-11-22 07:55:40,531 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-11-22 07:55:43,637 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-22 07:55:43,637 INFO - config-manager - Successfully loaded configuration
+2014-11-22 07:55:43,638 INFO - service - Starting service
+2014-11-22 07:55:43,920 INFO - interface - XRecord interface thread starting
+2014-11-22 07:55:43,921 INFO - service - Service now marked as running
+2014-11-22 07:55:44,030 INFO - root - Displaying configuration window
+2014-11-22 07:55:49,665 INFO - root - Entering main()
+2014-11-22 13:04:27,257 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-23 16:40:33,565 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-23 16:40:33,589 INFO - config-manager - Persisting configuration
+2014-11-23 16:40:33,631 INFO - config-manager - Backing up existing config file
+2014-11-23 16:40:33,691 INFO - config-manager - Finished persisting configuration - no errors
+2014-11-24 07:30:08,824 INFO - root - Initialising application
+2014-11-24 07:30:08,931 INFO - root - Initialise global hotkeys
+2014-11-24 07:30:08,931 INFO - config-manager - Loading config from existing file: /home/gfigueir/.config/autokey/autokey.json
+2014-11-24 07:30:12,059 INFO - config-manager - Configuration changed - rebuilding in-memory structures
+2014-11-24 07:30:12,059 INFO - config-manager - Successfully loaded configuration
+2014-11-24 07:30:12,059 INFO - service - Starting service
+2014-11-24 07:30:12,666 INFO - interface - XRecord interface thread starting
+2014-11-24 07:30:12,667 INFO - service - Service now marked as running
+2014-11-24 07:30:12,780 INFO - root - Displaying configuration window
+2014-11-24 07:30:20,555 INFO - root - Entering main()

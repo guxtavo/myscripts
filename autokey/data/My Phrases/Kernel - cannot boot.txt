@@ -10,7 +10,7 @@ It would help us if you could make a clone/snapshot/backup of your system. We ca
 
 I will need your help you troubleshoot this issue:
 
-  - Upload sosrepor (from rescue mode)[4] of the affected system
+  - Upload sosreport (from rescue mode)[4] of the affected system
   - Upload /boot content
 
 The error message you have shows that the root vg was not found. This can happen when you upgrade the kernel. The odd part is that when you upgrade a kernel, the old kernel has no change, thus it should boot normally. 

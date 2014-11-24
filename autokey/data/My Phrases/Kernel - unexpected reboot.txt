@@ -11,4 +11,56 @@ If this machine is part of an Oraclet cluster, please seek Oracle for assistance
 
 If this is a VM, please check your hypervisor for heartbeat messages.
 
+In order to assist you better it would be useful to have as much background information as possible about the issue.
 
+  0) Time stamp when the issue happened. 
+
+  1) Has this issue occurred before, and if yes, is there any noticeable pattern to the frequency of occurrence ? 
+
+  2) Has the issue recurred since it was reported ? 
+
+  3) Do you know of any CPU and/or memory intensive process that could have been  running on the system at the time of the issue ? 
+
+  4) Have there been any recent hardware/software/configuration changes made to the system ? 
+
+  5) Were there any messages on the console at the time of the issue ?
+
+  6) What is the present status of the system ?  Is it working normally ? or is it experiencing any issues ? 
+
+  7) Did the system capture a vmcore when it rebooted ? If so, could you please upload it  and let us know the file name and exact size of the it ?
+
+  8) Could you please capture and upload a sosreport from the system ? 
+
+Before uploading the vmcore, which can take minutes or even hours, depending on the vmcore file size, would you be able to extract the ring buffer and attach to the case? This can speedup the troubleshooting process. You can find more information about this in the following solution:
+
+  How to extract the kernel ring buffer from a vmcore file
+  https://access.redhat.com/solutions/470073
+
+
+This is third party unsupported code, but it looks like the the clusterware fenced itself to protect the data from data corruption. Before the crash we can also see some reservation conflicts.
+
+In this case, we will need you to reach your clusterware vendor so we can cooperate in the RCA. More information can be found here:
+
+  How does Red Hat Global Support Services handle third-party software, drivers, and/or uncertified hardware/hypervisors?
+  https://access.redhat.com/articles/1067
+
+If we proceed to RCA, we might need to have a lower severity and the investigation will be held out of 24x7 support, which currently you have. Meaningful vmcore analysis can take days or weeks.
+
+We don't have enough data to explain this reboot.
+
+  = Action plan =
+
+  * Check ILO logs and ASR
+  * Provide a vmcore 
+
+The following solutions will help you 1) configuring kdump, 2) testing kdump and 3) ena
+bling you system to automatically generate a vmcore.
+
+  1) How to troubleshoot kernel crashes, hangs, or reboots with kdump on Red Hat
+  https://access.redhat.com/site/solutions/6038
+
+  2) How to use the SysRq facility to collect information from a server which has hung
+  https://access.redhat.com/node/2023
+
+  3) What all panic parameters are available which I can use to panic a system when it is hanging or sluggish ?
+  https://access.redhat.com/site/solutions/459523
