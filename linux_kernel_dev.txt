@@ -1,0 +1,168 @@
+Oct 27 - chapter 2 
+
+  - Small per-process fixed-size stack
+  - Kernel has asynchronous interrupts, is preemptive and supports SMP, which causes synchronization and concurrency issues
+  - No libc or standard headers
+  - printk instead of printf
+  - Kernel is not coded in Ansi C
+  - Inline function example: static inline void wolf(unasigned long tail_size)	
+  - Inline functions in headers
+  - asm() is used to inline assembly code
+  - likely() and unlikely() are macros used to optimize the cost of one or the other
+  - if userspace attemps an illegal address, the kernel will kill it
+  - if kernelspace attemps an illegal address, an oops will be the result
+  - kernel memory is not pageble
+  - kernel should not do floating point
+  - Stack size on x86_64 is 16KB (two pages)
+  - Susceptible to race conditions since shared resources are accessed at same time
+  - Kernel must synchronize between preemptied tasks
+  - SMP can cause soft lockups
+  - Spinlocks and semaphores are solutuons to race conditions
+  - To maintain portability, it must be endian neutral, 64-bit clean and not assume word or page size
+
+Questions
+
+  - What is an inline function? (inserted inline into each functional call site) - what does that mean/
+  - What is defferencing a null pointer?
+
+Oct 27 - chapter 3 - process management
+
+  - Each thread includes a unique program counter, process stack and processor registers
+  - Linux does not differentiate between processes and threads
+  - Threads share the same virtual memory, but each has its own virtualized processor
+  - A process is an active program
+  - The parent process calls fork() to creates a new process by duplicating an existing one
+  - exec() creates a new address space and loads a new process
+  - exit() terminates a process and free all its resources
+  - wait4() is called by parent to know if child died
+  - When exit() finishes, the process becomes zombi
+  - Task list is circular doubly linked list which contains struct task_struct (linux/sched.h)
+  - task_struct is 1.7k on 32 bits
+  - task_struct contains: open files, process's address space, pending signals, process state..
+  - slab allocator provides object reuse and cache coloring
+  - thread_info can live at the bottom or at the top of the stack
+  - Each task's thread_info struct is allocated at the end of its stack
+  - task_struct lives inside thread_struct
+  - /proc/sys/kernel/pid_max
+  - current_thread_info() masks out the 13 least-significant buts of the stack pointer to obtain the thread_info structure
+  - current_thread_info()->task;
+  - S390 stores current in a register r2
+  - set_task_state(task, state)
+  - set_current_state(state) = set_task_state(current, state) (linux/sched.h)
+  - System calls and exception handlers are well-defined interfaces
+  - struct task_struct *my_parent = current->parent;
+  - to obtain the next task in the list: list_entry(task->tasks.next, struct task_struct, tasks) - for_each_process(task)
+  - fork() uses copu-on-write
+  - fork() is implemented via clone()
+  - kernel threads have mm pointer set to null
+  - kernel threads do not context switch into user-space
+
+Questions
+
+  - Does the process becomes zombie every time before wait() and waitpid() ?
+  - What is a circular doubly linked list?
+  - What is a data structure?
+  - How long is task_struct on x86_64?
+  - What are pending signals?
+  - Understand: the task_struct structure is allocated via the slab allocator
+  - Read again page 52 and 53
+  - What is stack pointer?
+  - What is "to dereference"?
+  - Page 55 has a nice flow chart for process states
+  - Is page table copy-on-write implemented?
+  - Page 61 has a table of what can be cloned with clone()
+
+System calls
+
+  - fork(), vfork(), _clone() invokes clone()
+  - clone() invokes do_fork()
+  - do_fork() calls copy_process()
+  - copy_process() calls dup_task_struct() which creatwes thread_info and task_struct
+  - copy_process() calls copy_flags()
+  - copy_process() calls alloc_pid()
+  - vfork() does not copy page table entries from parent
+  - after a thread is clone(), it will only wakeup with wake_up_process()
+  - kthread_run() will call kthread_create() and wake_up_process()
+  - kthread_stop() stops the kernel thread
+  - do_exit() sets PF_EXITING in flags
+  - do_exit() calls del_timer_sync() to remove timers
+  - do_exit() calls acct_update_integrals if BSD accounting is enabled
+  - do_exit() calls exit_mm() to release mm_struct
+  - do_exit() calls exit_sem(), exit_files(), exit_fs(), exit_notify(), and finally schedule()
+  - do_exit() leaves the process in EXIT_ZOMBIE
+  - after do_exit(), release_task() is invoked, which calls _exit_signal()
+  - exit_signal() calls _unhash_process(), which calls detach_pid()
+  - exit_signal() calls put_task_struct()
+  - do_exit() calls exit_notify(), which calls forget_original_parent() which calls find_new_reaper()
+
+Oct 29 - Chapter 4 - Process scheduling
+
+  - Processes will sleep and block other processes
+  - Preemption is the act of involuntarily suspending a running process
+  - The time defined for a process to run is called timeslice
+  - Fair scheduler don't have a timeslice per se
+  - o(1) (big-o) is the new scheduler since 2.5
+  - o has a constant-time algorithm for timeslice calculation
+  - o performance suffers in scheduling latency-sensitive apps (interactive processes)
+  - Rotating Staircase Deadline scheduler - fair scheduling
+  - Processes can be I/O-bound or processor-bound	
+  - Scheduler policy for processor-bound runs processor-bound processes less, but longer times 
+  - Scheduler favors I/O-bound over processor-bound processes without negletcting processor-bound
+  - Priority is set with nice (inverted - less is more, more is less - priority)
+  - Nice controls the proportion of the timeslice
+  - Priority is set with real-time priority (from 0 to 99 - higher the value, higher the prio)
+  - Timeslice is numeric (and it's also called quantum or processor slice in other unixes)
+  - CFS does not assign timeslices directly, but a proportion of the processor
+  - Nice acts as a weight
+  - Classes can coexist
+  - CFS class is for SCHED_NORMAL (kernel/sched_fair.c)
+  - Timeslice must be multiple of timer tick
+  - Targeted latency can have higher switching costs
+  - Minimum granularity of CFS is 1ms
+  - The timeslices are calculated using the difference of the niceness, not the absolute values
+  - CFS approximates perfect multitasking and it's meant for a bunch of processes
+  - CFS 4 components: time accounting, process selection, scheduler entry point and sleeping and waking up
+  - On each tick, timeslice is decremented by tick period
+  - When timeslice is 0, sched preempts 
+  - struct sched_entity is used to keep track of accounting
+  - sched_entity is embedded in the process descriptor, struc task_struct, variable se
+  - vruntime units are in nanoseconds, and it's decoupled from timer tick
+  - update_curr() manages accounting - delta_exec stores the value
+  - CFS picks the process with smaller vruntime to be the next to be executed, the one in the lefmost node in the rbtree by using __pick_next_entity()
+  - red-black tree (rbtree) manages the list of runnable processes
+  - rbtree is a self-balancing binary search tree
+  - rb_leftmost is the cached leftmost node from rbtree
+  - If rb_leftmost returns NULL, CFS schedules idle task
+  - Processes are added to rbtree via enqueue_entity when they become runnable, i.e. wakes up, or if created with fork()
+  - Process is removed from rbtree when becomes unrunnable or terminates
+  - schedule() is the entry point, and it is generic with respect to classes
+  - schedule() calls pick_next_task() which goes through each scheduler class, from highest, and selects the highest priority process
+  - When a task sleeps, it put itself in wait queue
+  - Both interruptible and uninterrupitable are on wait queue
+  - DEFINE_WAIT() calls add_wait_queue(), prepare_to_wait() and when task is running it calls finish_wait() to remove itself from wait queue
+  - inotify_read() handles reading from inotify file descriptor 
+  -  wake_up() calls try_to_wake_up(), which calls enqueue_task()
+  - Spurious wake-ups are when a task is wake-up and the event for the task is waking not necessarily occurred
+  - schedule() calls context_switch() which calls switch_mm(), switch_to()
+  - switch_to() restore stack information and processor registers
+  - need_resched class points if a task needs to be rescheduled
+  - preempt_count is inside thread_info, and is the number of locks a process have. It's a gauge
+  - Real time classes (policies) are SCHED_FIFO and SCHED_RR (sched_rt.c) 
+  - SCHED_FIFO don't have timeslices and has higher prio than SCHED_NORMAL
+  - SCHED_RR is SCHED_FIFO with timeslices
+  - SCHED_FIFO runs until it decides to do so
+  - There is no dynamic prio values for RT. A RT process will always preempt a lower prio
+  - Most important schedule system calls are at page 92
+  - policy and rt_priority can be found in task_struct
+  - cpus_allowed controls affinity and is inside task_stuct
+
+Oct 30 - Chapter 5 - System Calls
+
+  - printf() on an application code calls the C library and ultimatelly calls the write() system call
+  - SYSCALL_DEFINE0 is a macro for system calls with zero arguments
+  - Every syscall has a reference number 
+  - sys_ni_syscall() returns -ENOSYS - invalid system call
+  - sys_call_table stores all syscalls and its numbers
+  - software interrupt (128 - int $0x80)) allows apps to run syscalls on kernel mode
+  - eax register has the syscall number
+  - system_call() checks the validity of a given syscall by comparing it to NR_syscalls
