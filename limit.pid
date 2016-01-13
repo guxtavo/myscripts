@@ -1,0 +1,19 @@
+#!/bin/bash 
+# limit.pid - blkio wrarpper for running pid
+# Usage: ./limit.pid [bps] PID 
+# Needs: 4.2.8-200.fc22.x86_64, sudo, libcgroup-tools
+
+cgroup_name=$(basename $(mktemp -d))
+blkio_path=/sys/fs/cgroup/blkio
+mm_ids="253:1" # fedora-root
+pid=$2
+bw=$1
+
+sudo mkdir ${blkio_path}/${cgroup_name}
+
+echo "${mm_ids} ${bw}" | sudo tee \
+  ${blkio_path}/${cgroup_name}/blkio.throttle.write_bps_device 
+echo "${mm_ids} ${bw}" | sudo tee \
+  ${blkio_path}/${cgroup_name}/blkio.throttle.read_bps_device 
+echo ${pid} | sudo tee \
+  ${blkio_path}/${cgroup_name}/tasks
