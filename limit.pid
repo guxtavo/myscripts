@@ -1,7 +1,7 @@
 #!/bin/bash 
 # limit.pid - blkio wrarpper for running pid
 # Usage: ./limit.pid [bps] PID 
-# Needs: 4.2.8-200.fc22.x86_64, sudo, libcgroup-tools
+# Needs: 4.2.8-200.fc22.x86_64, sudo
 
 cgroup_name=$(basename $(mktemp -d))
 blkio_path=/sys/fs/cgroup/blkio
