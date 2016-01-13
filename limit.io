@@ -1,6 +1,11 @@
 #!/bin/bash
 # limit.io - blkio wrarpper for ephemeral processes
 # Usage: ./limit.io [bps] command with args
+# Examples
+# This will limit dd to 175kB/s
+# ./limit.io 175000 dd if=/dev/zero of=/home/gfigueir/50.dd bs=245K count=4 oflag=direct
+# This will limit sosreport to 2M/s
+# ./limit.io 2000000 sosreport --batch
 
 cgroup_name=$(basename $(mktemp -d))
 blkio_path=/sys/fs/cgroup/blkio
