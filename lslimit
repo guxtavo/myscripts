@@ -1,0 +1,17 @@
+#!/bin/bash 
+# lslimit - list blkio cgroups bw and pids
+# Usage: ./lslimit
+# Needs: 4.2.8-200.fc22.x86_64
+
+blkio_path=/sys/fs/cgroup/blkio
+
+for i in $(ls -d $blkio_path/tmp*/)
+do
+echo
+echo $i
+echo
+cat ${i}/blkio.throttle.write_bps_device 
+cat ${i}/blkio.throttle.read_bps_device 
+cat ${i}/tasks | perl -p -e 's/\n/ /g'
+echo 
+done
