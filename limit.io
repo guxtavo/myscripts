@@ -1,6 +1,7 @@
 #!/bin/bash 
 # limit.io - blkio wrarpper for ephemeral processes
-# Usage: ./limit.io [bps] command with args
+# Usage: ./limit.io [bps] command [args]
+# Needs: 4.2.8-200.fc22.x86_64, sudo, libcgroup-tools
 
 cgroup_name=$(basename $(mktemp -d))
 blkio_path=/sys/fs/cgroup/blkio
@@ -17,7 +18,7 @@ echo "${mm_ids} ${bw}" | sudo tee \
 
 if [ $(id -u) != "0" ]
  then 
-  sudo chown -R $(id -u) ${blkio_path}/${cgroup_name}/
+   sudo chown -R $(id -u) ${blkio_path}/${cgroup_name}/
 fi
 
 cgexec -g blkio:${cgroup_name} $command
