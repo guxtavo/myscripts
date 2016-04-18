@@ -1,0 +1,1 @@
+grep "or specify a dump path backed by rootfs block device" var/log/messages

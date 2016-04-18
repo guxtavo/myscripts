@@ -1,0 +1,1 @@
+grep nameidata_to_filp var/log/messages* var/log/dmesg

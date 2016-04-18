@@ -1,0 +1,1 @@
+grep "Port h isolated due to client process failure" var/log/messages*

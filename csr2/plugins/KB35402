@@ -1,0 +1,1 @@
+grep "NMI received for unknown reason" var/log/messages*

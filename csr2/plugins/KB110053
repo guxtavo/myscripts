@@ -1,0 +1,2 @@
+grep 5500 lspci | tail -n5
+grep -i 'No irq handler for vector' var/log/messages*

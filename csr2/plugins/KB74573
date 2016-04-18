@@ -1,0 +1,1 @@
+grep "page allocation failure" var/log/messages*

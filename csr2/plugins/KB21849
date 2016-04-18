@@ -1,0 +1,1 @@
+grep -i "soft lockup" var/log/message* var/log/dmesg

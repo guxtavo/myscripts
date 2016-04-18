@@ -1,0 +1,82 @@
+echo "  https://access.redhat.com/solutions/110053"
+grep 5500 lspci | tail -n5 || echo "No 5500 chipset found"
+
+echo "  https://access.redhat.com/solutions/35572"
+grep -i 'Out of MCCQ wrbs' var/log/messages* || echo "No Out of MCCQ wrbs found on messages"
+
+
+echo "  https://access.redhat.com/solutions/UNKNOWN"
+echo -n "Number of processes with data on recvq: "
+awk '{IGNORECASE=1}{if ($2 > 0) print}' ./sos_commands/networking/netstat_-neopa | grep -v unix | wc -l
+echo -n "Number of processes with data on sendq: "
+awk '{IGNORECASE=1}{if ($3 > 0) print}' ./sos_commands/networking/netstat_-neopa | grep -v unix | wc -l
+
+echo "  https://access.redhat.com/articles/1067"
+egrep -i 'weak|extra|hp-' sos_commands/kernel/modinfo* || echo "No extra modules found"
+
+echo "  https://access.redhat.com/solutions/530713"
+egrep "P65|07/01/2013|1.61" dmidecode || echo "No P65 BIOS found"
+egrep "12/03/2012|1.55" dmidecode || echo "No 1.55 BIOS found"
+
+echo "  https://access.redhat.com/solutions/707563"
+egrep "PoLiant DL360 G8|1.30|1.32|1.40|1.50" dmidecode
+
+echo "  https://access.redhat.com/solutions/44602"
+grep '^-f 2' etc/audit/audit.rules || echo "-f 2 not found on audit.rules"
+
+echo "  https://access.redhat.com/solutions/46073"
+egrep "down for system reboot|Switching to runlevel: 6|exiting on signal 15|Got SIGTERM, quitting" var/log/messages*
+
+echo "https://access.redhat.com/solutions/116333"
+grep "Port h isolated due to client process failure" var/log/messages*
+
+echo "  https://access.redhat.com/solutions/UNKNOWN"
+egrep "fenced|encing node" var/log/messages* || echo No RHEL HA CS Fence event
+
+echo "  https://access.redhat.com/solutions/18723"
+grep "Machine Check Exception" var/log/messages* || echo No HW fault
+grep "Machine check events" var/log/messages* || echo No HW fault
+
+echo "  https://access.redhat.com/solutions/134973"
+egrep "Temperature above threshold|cpu clock throttled|Core power limit notification" var/log/messages*
+
+echo "  https://access.redhat.com/solutions/UNKNOWN"
+egrep "received event|button\/power PWRF 00000000 00000000" var/log/messages*
+
+echo "  Error: Uhhuh. NMI received for unknown reason <xx>"
+echo "  https://access.redhat.com/solutions/35402"
+grep "NMI received for unknown reason" var/log/messages* 2> /dev/null
+
+echo "  https://access.redhat.com/solutions/31453"
+grep "blocked for more than" var/log/messages*
+grep "blocked for more than" sos_commands/kernel/dmesg*
+
+echo "  https://access.redhat.com/solutions/21849"
+grep -i "soft lockup" var/log/message*
+
+echo "  https://access.redhat.com/solutions/473963"
+egrep trig lsof
+
+echo "  https://access.redhat.com/solutions/433883"
+grep nameidata_to_filp var/log/messages*
+
+echo "  https://access.redhat.com/solutions/25965"
+grep -i oom-killer var/log/messages*
+
+echo "  https://access.redhat.com/solutions/444873"
+grep "page allocation failure" var/log/messages*
+
+echo "  https://access.redhat.com/solutions/40594"
+cat proc/sys/kernel/tainted
+
+echo "https://access.redhat.com/solutions/53793"
+grep segfault var/log/messages*
+
+echo "  https://access.redhat.com/solutions/55862"
+egrep "BIOS has corrupted|Broken BIOS detected" var/log/messages*
+
+echo "  https://access.redhat.com/site/solutions/20119"
+egrep "reservation conflict" var/log/messages*
+
+echo "  https://access.redhat.com/solutions/22105"
+egrep "fork of child|Resoure temporarily" var/log/messages*

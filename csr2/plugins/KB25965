@@ -1,0 +1,1 @@
+grep -i oom-killer var/log/messages* var/log/dmesg

@@ -1,0 +1,1 @@
+grep -i 'Out of MCCQ wrbs' var/log/messages* 

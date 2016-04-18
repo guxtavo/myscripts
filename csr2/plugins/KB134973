@@ -1,0 +1,1 @@
+egrep "Temperature above threshold|cpu clock throttled|Core power limit notification" var/log/messages*

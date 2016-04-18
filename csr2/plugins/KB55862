@@ -1,0 +1,1 @@
+egrep "BIOS has corrupted|Broken BIOS detected" var/log/messages*

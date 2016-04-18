@@ -1,0 +1,1 @@
+egrep "down for system reboot|Switching to runlevel: 6|exiting on signal 15|Got SIGTERM, quitting" var/log/messages*

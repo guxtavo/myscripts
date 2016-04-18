@@ -1,0 +1,1 @@
+egrep "fork of child|Resoure temporarily" var/log/messages*

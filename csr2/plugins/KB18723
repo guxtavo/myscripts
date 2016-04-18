@@ -1,0 +1,2 @@
+grep "Machine Check Exception" var/log/messages*
+grep "Machine check events" var/log/messages*
