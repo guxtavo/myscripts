@@ -1,11 +1,15 @@
 #!/bin/bash
-#gunzip var/log/*.gz
 
 echo "sosreport contains data related the following KBs"
 
-for i in ~/scripts/myscripts/csr2/plugins/*
+cd $1
+
+for i in ~/myscripts/csr2/plugins/*
     do
         if $i > /dev/null; then
-	    echo " -> https://access.redhat.com/solutions/${i#/home/gfigueir/scripts/myscripts/csr2/plugins/KB}"
+            j=${i#/root/myscripts/csr2/plugins/}
+	    DESC=$(grep $j ~/myscripts/csr2/kb.db)
+	    echo -n " -> https://access.redhat.com/solutions/${i#/root/myscripts/csr2/plugins/KB} - "
+	    echo ${DESC:12}
 	fi
 done

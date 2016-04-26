@@ -1,0 +1,1 @@
+grep qla2xxx sos_commands/kernel/dmesg | grep "This is likely a firmware bug"

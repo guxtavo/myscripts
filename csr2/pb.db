@@ -1,0 +1,71 @@
+  BDS001
+  What is a sosreport and how to create one in Red Hat Enterprise Linux 4.6 and later?
+  https://access.redhat.com/solutions/3592
+
+  BDS001 - KBC001
+  How to generate sosreport from the rescue environment
+  https://access.redhat.com/solutions/2872
+
+  BDS001
+  How to provide large files to Red Hat Support (vmcore, rhev logcollector, large sosreports, heap dumps, large log files, etc.) 
+  https://access.redhat.com/solutions/2112
+
+  BDP001
+  How do I collect performance data with perf which is readable on another machine? 
+  https://access.redhat.com/solutions/386343
+
+  BDP001
+  How to set up and use oprofile on Red Hat Enterprise Linux? 
+  https://access.redhat.com/solutions/4067
+
+  BDP001
+  How do I use strace to trace system calls made by a command? 
+  https://access.redhat.com/articles/2483
+
+  BDP001
+  What is SystemTap and how to use it? 
+  https://access.redhat.com/solutions/5441
+
+  KBU001
+  A Guide to Unexpected System Restarts
+  https://access.redhat.com/articles/206873
+
+  KBU001 
+  Determining if a High Availability Virtual Machine Monitoring event caused a virtual machine to reboot
+  http://kb.vmware.com/kb/1027734
+
+  KTO001
+  Tuning Red Hat Enterprise Linux for Oracle and Oracle RAC performance
+  https://access.redhat.com/site/solutions/39188
+
+  KTD001
+  What is the recommended I/O scheduler for a database workload in Red Hat Enterprise Linux?
+  https://access.redhat.com/solutions/54164
+
+  KPH001
+  What all panic parameters are available which I can use to panic a system when it is hanging or sluggish ?
+  https://access.redhat.com/site/solutions/459523
+
+  KVC001
+  How do I automatically generate a vmcore to help analyse soft lockups?
+  https://access.redhat.com/site/solutions/19541
+
+  KPH001
+  How to make sure that system will automatically reboot after a kernel panic ?
+  https://access.redhat.com/solutions/37275
+
+  KPH001
+  How to use the SysRq facility to collect information from a server which has hung
+  https://access.redhat.com/solutions/2023
+
+  KBU001
+  How to find which user has rebooted the system? 
+  https://access.redhat.com/solutions/41281
+
+  KBC001
+  How to display more verbose boot-related messages during system startup.
+  https://access.redhat.com/solutions/28921
+
+  KMF002
+  What is cache in "free -m" output and why is memory utilization high for cache? 
+  https://access.redhat.com/solutions/67610
