@@ -113,7 +113,7 @@ egrep "panic|sysrq" sos_commands/kernel/sysctl_-a
 echo
 echo "############### last reboots #################"
 echo
-grep "Command line" var/log/messages* || echo "No reboots found on messages"
+egrep "mockbuild|Command line" var/log/messages* || echo "No reboots found on messages"
 echo
 
 echo "############# user initiated #################"
@@ -161,10 +161,14 @@ grep "NMI received for unknown reason" var/log/messages* 2> /dev/null || echo No
 echo
 
 echo "############### task blocked #################"
-echo "  System becomes unresponsive with message "INFO: task <process>:<pid> blocked for more than 120 seconds"
+echo "  System becomes unresponsive with message INFO: task <process>:<pid> blocked for more than 120 seconds"
 echo "  https://access.redhat.com/solutions/31453"
 echo
+echo blocked processes in messages
 grep "blocked for more than" var/log/messages* || echo no Task blocked for too long
+echo
+echo blocked processes in dmesg
+grep "blocked for more than" sos_commands/kernel/dmesg* || echo no Task blocked for too long
 echo
 
 echo "############### soft lockups #################"
@@ -175,6 +179,11 @@ echo "  Getting "BUG: soft lockup detected on CPU#N" messages running RHEL on VM
 echo "  https://access.redhat.com/solutions/21849"
 echo
 grep -i "soft lockup" var/log/message* || echo "No soft lockups found"
+echo
+
+echo "############### RIP|BUG|WARNING #################"
+echo
+egrep "RIP|BUG|WARNING" var/log/message* || echo "No RIP found"
 echo
 
 echo "############### oracle rac ###################"
@@ -253,6 +262,9 @@ echo
 echo "  Kernel panic due to Out of memory even though lots of physical memory was available"
 echo "  https://access.redhat.com/solutions/444873"
 echo
+echo "  How to tune vm.min_free_kbytes"
+echo "  https://access.redhat.com/solutions/2860051"
+echo
 grep vm.min_free_kbytes sos_commands/kernel/sysctl_-a
 echo
 grep "page allocation failure" var/log/messages*
@@ -317,3 +329,30 @@ echo "Searching for eth* messages"
 echo
 egrep "eth" var/log/messages* || echo "No eth* messages found"
 echo
+
+echo "##############################################"
+echo "##############################################"
+echo "################# Storage ####################"
+echo "##############################################"
+echo "##############################################"
+echo
+
+echo "##############################################"
+echo "I/O error"
+echo
+egrep "I/O error" var/log/messages* || echo "No I/O error messages found"
+echo
+
+echo "##############################################"
+echo "In /var/log/messages , EXT3-fs error (device sda1): htree_dirblock_to_tree: bad entry in directory #2: rec_len is smaller than minimal - offset=0, inode=0, rec_len=0, name_len=0"
+echo "https://access.redhat.com/solutions/67695"
+echo
+egrep "rec_len is smaller" var/log/messages* || echo "No rec_len found"
+echo
+
+echo "##############################################"
+echo "read-only filesystem"
+echo
+egrep "filesystem read-only" var/log/messages* || echo "No filesystem read-only found"
+echo
+
